@@ -18,11 +18,8 @@ local parser = argparse() {
 }
 
 local yaml = require("bw.lib.yaml")
-
 local tools = require("bw.tools")
-
 local options = require("bw.options")
-
 local messages = require("bw.messages")
 
 local raw = tools.read_file("../include/bw.yml")
@@ -34,10 +31,9 @@ local conf = yaml.parse(raw)
 parser:option("-d --directory", "StarCraft bots directory", "/opt/StarCraft")
 -- Fighting bots
 parser:option("-b --bots", "Prepare to fight", "Ophelia BananaBrain")
--- Map is not territory
-parser:option("-m --map", "for territory", "maps/download/Fighting\\ Spirit.scx")
+parser:option("-m --map", "not territory", "maps/download/Fighting\\ Spirit.scx")
 
--- CLI pkg command
+-- CLI bw command
 parser:command_target("command")
 -- How are you? 
 parser:command("status")

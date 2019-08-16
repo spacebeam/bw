@@ -1,15 +1,7 @@
--- add work on bwapi.ini
-local ini = require("inifile")
-
--- BWAPI and TorchCraft use .ini files
-bwapi = ini.parse("../include/bwapi-data/bwapi.ini")
-
 local options = {}
 
 function options.get_conf(dir)
-    -- 
-    --
-    --
+    -- get configuration
     local conf = {}
     conf.bwapi = {}
     conf.bots = dir .. '/bots/'
@@ -24,15 +16,5 @@ function options.get_conf(dir)
     conf.bwapi.logs = conf.bwapi.data .. 'logs'
     return conf
 end
--- BWAPI version 4.2.0 and higher ONLY
--- FIRST (default), use the first character in the list
--- WAIT, stop at this screen
--- else the character with the given value is used/created
-local character_name = "FIRST"
--- BWAPI version 4.2.0 and higher ONLY
--- Text that appears in the drop-down list below the Game Type.
-local game_type_extra = ""
-
-print(bwapi)
 
 return options

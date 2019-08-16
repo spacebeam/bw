@@ -2,6 +2,8 @@
 -- Everyone's tool library
 --
 
+local ini = require("inifile")
+
 local tools = {}
 
 function tools.read_file(file)
@@ -21,6 +23,19 @@ function tools.md5sum(value)
     local result = handle:read("*a")
     handle:close()
     return tools.all_trim(result)
+end
+
+function tools.get_bwapi_ini()
+	local bwapi = ini.parse("../include/bwapi-data/bwapi.ini")
+	-- BWAPI version 4.2.0 and higher ONLY
+	-- FIRST (default), use the first character in the list
+	-- WAIT, stop at this screen
+	-- else the character with the given value is used/created
+	local character_name = "FIRST"
+	-- BWAPI version 4.2.0 and higher ONLY
+	-- Text that appears in the drop-down list below the Game Type.
+	local game_type_extra = ""
+	return bwapi
 end
 
 return tools
