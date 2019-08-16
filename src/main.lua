@@ -28,9 +28,9 @@ local raw = tools.read_file("../include/bw.yml")
 local conf = yaml.parse(raw)
 
 -- Spawning bots at directory
-parser:option("-d --directory", "StarCraft bots directory", "/opt/StarCraft")
+parser:option("-d --directory", "StarCraft 1.16.1 directory", "/opt/StarCraft")
 -- Fighting bots
-parser:option("-b --bots", "Prepare to fight", "Ophelia BananaBrain")
+parser:option("-b --bots", "Prepare to fight", "Ophelia")
 parser:option("-m --map", "not territory", "maps/download/Fighting\\ Spirit.scx")
 
 -- CLI bw command
