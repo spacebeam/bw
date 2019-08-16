@@ -12,7 +12,7 @@ local session_uuid = uuid()
 -- CLI argument parser
 local parser = argparse() {
    name = "bw",
-   description = "bw command line toolkit.",
+   description = "bw command line tool.",
    epilog = "It can download and launch Win32 C++ and Java bots " .. 
    "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0."
 }
