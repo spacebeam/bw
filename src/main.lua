@@ -21,19 +21,21 @@ local yaml = require("bw.lib.yaml")
 
 local tools = require("bw.tools")
 
+local options = require("bw.options")
+
 local raw = tools.read_file("../include/bw.yml")
 
+-- first load bw.yml configuration file 
 local conf = yaml.parse(raw)
 
-print(conf)
-
-
 -- Spawning bots at directory
-parser:option("-d --directory", "StarCraft bots directory", "/opt/StarCraft/")
+parser:option("-d --directory", "StarCraft bots directory", "/opt/StarCraft")
 -- Fighting bots
-parser:option("-b --bots", "Prepare to fight", "Ophelia Blueberry")
+parser:option("-b --bots", "Prepare to fight", "Ophelia BananaBrain")
 -- Map is not territory
 parser:option("-m --map", "for territory", "maps/download/Fighting\\ Spirit.scx")
+
+
 -- CLI pkg command
 parser:command_target("command")
 -- How are you? 
@@ -50,8 +52,10 @@ local messages = {
 }
 -- Parse your arguments
 local args = parser:parse()
--- Your local variables
-local sc = args['directory']
+
+local config = options.get_conf(args['directory'])
+
+print(config)
 
 -- WHAT IF I GET STUFF FROM YML?
 
