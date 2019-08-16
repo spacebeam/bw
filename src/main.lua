@@ -16,6 +16,18 @@ local parser = argparse() {
    epilog = "It can download and launch Win32 C++ and Java bots " .. 
    "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0."
 }
+
+local yaml = require("bw.lib.yaml")
+
+local tools = require("bw.tools")
+
+local raw = tools.read_file("../include/bw.yml")
+
+local conf = yaml.parse(raw)
+
+print(conf)
+
+
 -- Spawning bots at directory
 parser:option("-d --directory", "StarCraft bots directory", "/opt/StarCraft/")
 -- Fighting bots

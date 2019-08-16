@@ -7,7 +7,7 @@ source = {
 }
 
 description = {
-  summary = "bw command line toolkit",
+  summary = "bw command line tool",
   detailed = "It can download and launch Win32 C++ and Java bots " ..
   "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0.",
   homepage = "https://github.com/spacebeam",
@@ -26,9 +26,13 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
-    ['bw.version'] = "src/version.lua",
+    ['bw.lib.yaml'] = "src/lib/YAMLParserLite.lua",
+    ['bw.bots'] = "src/bots.lua",
+    ['bw.messages'] = "src/messages.lua",
+    ['bw.options'] = "src/options.lua",
     ['bw.tools'] = "src/tools.lua",
-    ['bw.bots'] = "src/bots.lua"
+    ['bw.version'] = "src/version.lua",
+    ['bw.zstreams'] = "src/zstreams.lua"
   },
   install = {
     bin = {
