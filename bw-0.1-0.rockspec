@@ -4,7 +4,7 @@ package = "bw"
 version = "0.1-0"
 
 source = {
-  url = "git://github.com/spacebeam/starcraft-sif",
+  url = "git://github.com/spacebeam/bw",
   tag = "0.1.0",
 }
 
