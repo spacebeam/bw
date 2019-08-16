@@ -16,11 +16,15 @@ local parser = argparse() {
    epilog = "It can download and launch Win32 C++ and Java bots " .. 
    "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0."
 }
-
+local json = require("bw.lib.json")
 local yaml = require("bw.lib.yaml")
-local tools = require("bw.tools")
-local options = require("bw.options")
+
+local bots = require("bw.bots")
 local messages = require("bw.messages")
+local options = require("bw.options")
+local tools = require("bw.tools")
+local version = require("bw.version")
+local zstreams = require("bw.zstreams")
 
 local raw = tools.read_file("../include/bw.yml")
 
