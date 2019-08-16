@@ -5,6 +5,15 @@
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
+local json = require("bw.lib.json")
+local yaml = require("bw.lib.yaml")
+local bots = require("bw.bots")
+local messages = require("bw.messages")
+local options = require("bw.options")
+local tools = require("bw.tools")
+local version = require("bw.version")
+local zstreams = require("bw.zstreams")
+
 -- init random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Session UUID
@@ -16,24 +25,12 @@ local parser = argparse() {
    epilog = "It can download and launch Win32 C++ and Java bots " .. 
    "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0."
 }
-local json = require("bw.lib.json")
-local yaml = require("bw.lib.yaml")
-
-local bots = require("bw.bots")
-local messages = require("bw.messages")
-local options = require("bw.options")
-local tools = require("bw.tools")
-local version = require("bw.version")
-local zstreams = require("bw.zstreams")
-
-local raw = tools.read_file("../include/bw.yml")
-
 -- first load bw.yml configuration file 
+local raw = tools.read_file("../include/bw.yml")
 local conf = yaml.parse(raw)
 
--- Spawning bots at directory
+-- Spawning fighting bots at 
 parser:option("-d --directory", "StarCraft 1.16.1 directory", "/opt/StarCraft")
--- Fighting bots
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
 parser:option("-m --map", "not territory", "maps/download/Fighting\\ Spirit.scx")
 
