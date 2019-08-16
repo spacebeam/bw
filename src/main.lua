@@ -23,6 +23,8 @@ local tools = require("bw.tools")
 
 local options = require("bw.options")
 
+local messages = require("bw.messages")
+
 local raw = tools.read_file("../include/bw.yml")
 
 -- first load bw.yml configuration file 
@@ -35,21 +37,13 @@ parser:option("-b --bots", "Prepare to fight", "Ophelia BananaBrain")
 -- Map is not territory
 parser:option("-m --map", "for territory", "maps/download/Fighting\\ Spirit.scx")
 
-
 -- CLI pkg command
 parser:command_target("command")
 -- How are you? 
 parser:command("status")
 -- Live for the swarm! 
 parser:command("play")
--- Your system messages
-local messages = {
-  'Can I take your order?',
-  'Go ahead HQ.',
-  'In the pipe, five by five.',
-  'In transit HQ.',
-  'I copy that.',
-}
+
 -- Parse your arguments
 local args = parser:parse()
 
@@ -58,6 +52,7 @@ local config = options.get_conf(args['directory'])
 print(config)
 
 -- WHAT IF I GET STUFF FROM YML?
+-- KIND OF GETTING THERE...
 
 -- STATUS, STATUS, STATUS 
 if args['command'] == 'status' then
