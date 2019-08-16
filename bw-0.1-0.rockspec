@@ -1,3 +1,5 @@
+-- Something completely different
+
 package = "bw"
 version = "0.1-0"
 
