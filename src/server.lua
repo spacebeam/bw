@@ -4,21 +4,17 @@
 local argparse = require("argparse")
 local turbo = require("turbo")
 local uuid = require("uuid")
-local yaml = require("bw.lib.yaml")
+local options = require("bw.options")
 
-local parser = argparser("server.lua, handles the bot fights")
+local parser = argparse("server.lua, handles the bot fights")
     parser:option("-c --config", "configuration file.", "../include/bw.yml")
 
 local args = parser:parse()
 
-function get_options(config)
-    local options = yaml?config
-    return options
-
-local config = get_options(args['config'])
+local config = options.get_options(args['config'])
 
 turbo.log.warning(config['host'])
-turbo.log.warning(config['port'])
+turbo.log.warning(tostring(config['port']))
 
 -- Session ID
 local session_uuid = uuid()

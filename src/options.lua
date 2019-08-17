@@ -1,6 +1,15 @@
+local yaml = require("bw.lib.yaml")
+local tools = require("bw.tools")
+
 local options = {}
 
-function options.get_conf(dir)
+function options.get_options(config_file)
+    local raw = tools.read_file(config_file)
+    local conf = yaml.parse(raw)
+    return conf
+end
+
+function options.get_session_conf(dir)
     -- get configuration
     local conf = {}
     conf.bwapi = {}
