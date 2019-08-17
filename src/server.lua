@@ -13,13 +13,10 @@ local args = parser:parse()
 
 local config = options.get_options(args['config'])
 
-turbo.log.warning(config['host'])
-turbo.log.warning(tostring(config['port']))
-
 -- Session ID
 local session_uuid = uuid()
 
-turbo.log.warning(session_uuid)
+turbo.log.warning("bw.server.lua " .. session_uuid)
 
 -- Handler that control the bots
 local BotsHandler = class("BotsHandler", turbo.web.RequestHandler)
