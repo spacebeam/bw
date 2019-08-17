@@ -30,7 +30,7 @@ local conf = yaml.parse(raw)
 -- Spawning fighting bots at 
 parser:option("-d --directory", "StarCraft 1.16.1 directory", "/opt/StarCraft")
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
-parser:option("-m --map", "not territory", "maps/download/Fighting\\ Spirit.scx")
+parser:option("-m --map", "is not the territory", "maps/download/Fighting\\ Spirit.scx")
 -- CLI bw command
 parser:command_target("command")
 -- How are you? 
