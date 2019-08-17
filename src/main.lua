@@ -41,17 +41,17 @@ parser:command("play")
 local args = parser:parse()
 local config = options.get_conf(args['directory'])
 -- WHAT IF I GET STUFF FROM YML?
-print(config)
 -- KIND OF GETTING THERE...
 -- STATUS, STATUS, STATUS 
 if args['command'] == 'status' then
-    print('status')
+    print(messages[math.random(#messages)])
 -- PLAY, PLAY, PLAY
 elseif args['command'] == 'play' then
-    print('play')
+    print(config)
     print(args['bots'])
     print(args['map'])
     print(args['directory'])
+    -- something completely different
 else
     -- do something else
     print(messages[1])
