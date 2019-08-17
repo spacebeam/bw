@@ -30,11 +30,6 @@ function BotsHandler:get()
     turbo.log.warning('get received')
 end
 
-function BotsHandler:patch()
-    local data = self:get_json(true)
-    turbo.log.warning('patch received ' .. data)    
-end
-
 local application = turbo.web.Application:new({
     {"/bots/", BotsHandler}
 })
