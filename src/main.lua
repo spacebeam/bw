@@ -40,8 +40,8 @@ parser:command("play")
 -- Parse your arguments
 local args = parser:parse()
 local config = options.get_conf(args['directory'])
-print(config)
 -- WHAT IF I GET STUFF FROM YML?
+print(config)
 -- KIND OF GETTING THERE...
 -- STATUS, STATUS, STATUS 
 if args['command'] == 'status' then
