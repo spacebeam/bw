@@ -5,7 +5,6 @@
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
-local json = require("bw.lib.json")
 local yaml = require("bw.lib.yaml")
 local bots = require("bw.bots")
 local messages = require("bw.messages")
