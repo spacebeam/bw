@@ -41,9 +41,7 @@ local config = options.get_session_conf(args['directory'])
 -- KIND OF GETTING THERE...
 -- STATUS, STATUS, STATUS 
 if args['command'] == 'status' then
-
     local url = "http://" .. conf['host'] .. ":" .. tostring(conf['port']) .. "/status/"
-
     local res, code, response_headers = http.request{
         url = url,
         method = "GET",
@@ -51,9 +49,11 @@ if args['command'] == 'status' then
             ["Content-Type"] = "application/json"
         },
     }
-
-    print(code)
-
+    if code == 'connection refused' then
+        print('no')
+    else
+        print(code)
+    end
     print(messages[math.random(#messages)])
 -- PLAY, PLAY, PLAY
 elseif args['command'] == 'play' then
