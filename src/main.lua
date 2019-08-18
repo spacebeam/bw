@@ -4,8 +4,8 @@
 --
 local argparse = require("argparse")
 local socket = require("socket")
+local http = require("socket.http")
 local uuid = require("uuid")
-local yaml = require("bw.lib.yaml")
 local bots = require("bw.bots")
 local messages = require("bw.messages")
 local options = require("bw.options")
@@ -23,9 +23,7 @@ local parser = argparse() {
    epilog = "It can download and launch Win32 C++ and Java bots " .. 
    "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0."
 }
--- first load bw.yml configuration file 
-local raw = tools.read_file("../include/bw.yml")
-local conf = yaml.parse(raw)
+local conf = options.get_options("../include/bw.yml")
 -- Spawning fighting bots at 
 parser:option("-d --directory", "StarCraft 1.16.1 directory", "/opt/StarCraft")
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
@@ -38,11 +36,24 @@ parser:command("status")
 parser:command("play")
 -- Parse your arguments
 local args = parser:parse()
-local config = options.get_conf(args['directory'])
+local config = options.get_session_conf(args['directory'])
 -- WHAT IF I GET STUFF FROM YML?
 -- KIND OF GETTING THERE...
 -- STATUS, STATUS, STATUS 
 if args['command'] == 'status' then
+
+    local url = "http://" .. conf['host'] .. ":" .. tostring(conf['port']) .. "/status/"
+
+    local res, code, response_headers = http.request{
+        url = url,
+        method = "GET",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+    }
+
+    print(code)
+
     print(messages[math.random(#messages)])
 -- PLAY, PLAY, PLAY
 elseif args['command'] == 'play' then

@@ -30,8 +30,25 @@ function BotsHandler:get()
     turbo.log.warning('get received')
 end
 
+-- Ping/pong handler
+local StatusHandler = class("StatusHandler", turbo.web.RequestHandler)
+
+function StatusHandler:get()
+    self:write("pong")
+end
+
+-- Games handler
+local GamesHandler = class("GamesHandler", turbo.web.RequestHandler)
+
+function GamesHandler:get()
+    -- !
+    self:write(tostring(0))
+end
+
 local application = turbo.web.Application:new({
-    {"/bots/", BotsHandler}
+    {"/bots/", BotsHandler},
+    {"/games/", GamesHandler},
+    {"/status/", StatusHandler}
 })
 -- I/O application start listen on TCP port.
 application:listen(config['port'])
