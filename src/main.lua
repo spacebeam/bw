@@ -6,12 +6,9 @@ local argparse = require("argparse")
 local socket = require("socket")
 local http = require("socket.http")
 local uuid = require("uuid")
-local bots = require("bw.bots")
 local messages = require("bw.messages")
 local options = require("bw.options")
-local tools = require("bw.tools")
 local version = require("bw.version")
-local zstreams = require("bw.zstreams")
 -- init random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Session UUID
@@ -34,6 +31,8 @@ parser:command_target("command")
 parser:command("status")
 -- Live for the swarm! 
 parser:command("play")
+-- Show your version
+parser:command("version")
 -- Parse your arguments
 local args = parser:parse()
 local config = options.get_session_conf(args['directory'])
@@ -62,6 +61,8 @@ elseif args['command'] == 'play' then
     print(args['map'])
     print(args['directory'])
     -- Something completely different
+elseif args['command'] == 'version' then
+    print('bw version ' .. version)
 else
     -- do something else
     print(messages[1])
