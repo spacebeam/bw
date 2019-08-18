@@ -35,8 +35,6 @@ parser:command("version")
 -- Parse your arguments
 local args = parser:parse()
 local config = options.get_session_conf(args['directory'])
--- WHAT IF I GET STUFF FROM YML?
--- KIND OF GETTING THERE...
 if args['command'] == 'start' then
     print(config)
     print(args['bots'])
