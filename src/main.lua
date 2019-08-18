@@ -30,7 +30,7 @@ parser:option("-b --bots", "Prepare to fight", "Ophelia")
 parser:option("-m --map", "is not the territory", "maps/download/Fighting\\ Spirit.scx")
 -- CLI bw command
 parser:command_target("command")
--- How are you? 
+-- Computer, how are you? 
 parser:command("status")
 -- Live for the swarm! 
 parser:command("play")
@@ -61,7 +61,7 @@ elseif args['command'] == 'play' then
     print(args['bots'])
     print(args['map'])
     print(args['directory'])
-    -- something completely different
+    -- Something completely different
 else
     -- do something else
     print(messages[1])
