@@ -27,10 +27,14 @@ parser:option("-b --bots", "Prepare to fight", "Ophelia")
 parser:option("-m --map", "is not the territory", "maps/download/Fighting\\ Spirit.scx")
 -- CLI bw command
 parser:command_target("command")
+
+-- Live for the swarm! 
+parser:command("start")
+-- No computer, no cry
+parser:command("stop")
+
 -- Computer, how are you? 
 parser:command("status")
--- Live for the swarm! 
-parser:command("play")
 -- Show your version
 parser:command("version")
 -- Parse your arguments
@@ -38,8 +42,17 @@ local args = parser:parse()
 local config = options.get_session_conf(args['directory'])
 -- WHAT IF I GET STUFF FROM YML?
 -- KIND OF GETTING THERE...
+-- PLAY, PLAY, PLAY
+if args['command'] == 'start' then
+    print(config)
+    print(args['bots'])
+    print(args['map'])
+    print(args['directory'])
+    -- Something completely different
+elseif args['command'] == 'stop' then
+    print('Stop ' .. messages[math.random(#messages)])
 -- STATUS, STATUS, STATUS 
-if args['command'] == 'status' then
+elseif args['command'] == 'status' then
     local url = "http://" .. conf['host'] .. ":" .. tostring(conf['port']) .. "/status/"
     local res, code, response_headers = http.request{
         url = url,
@@ -49,18 +62,11 @@ if args['command'] == 'status' then
         },
     }
     if code == 'connection refused' then
-        print('no')
-    else
         print(code)
+    else
+        print(code .. ' connection established')
     end
     print(messages[math.random(#messages)])
--- PLAY, PLAY, PLAY
-elseif args['command'] == 'play' then
-    print(config)
-    print(args['bots'])
-    print(args['map'])
-    print(args['directory'])
-    -- Something completely different
 elseif args['command'] == 'version' then
     print('bw version ' .. version)
 else
