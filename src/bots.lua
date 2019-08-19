@@ -31,6 +31,12 @@ end
 
 local available = bots.get_sscait_bots()
 
-print(available)
+local names = {}
+
+for i, v in ipairs(available) do names[i] = v["name"] end
+
+print(#names)
+
+--  
 
 return bots
