@@ -30,6 +30,7 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
+    ['bw.lib.json'] = "src/lib/json.lua",
     ['bw.lib.yaml'] = "src/lib/YAMLParserLite.lua",
     ['bw.bots'] = "src/bots.lua",
     ['bw.messages'] = "src/messages.lua",

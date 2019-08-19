@@ -1,4 +1,5 @@
 local https = require("ssl.https")
+local json = require("bw.lib.json")
 --
 supported_bwapi = {
     ["4.4.0"] = "cf7a19fe79fad87f88177c6e327eaedc",
@@ -8,8 +9,6 @@ supported_bwapi = {
 --
 local bots = {}
 --
-
--- !
 function bots.get_sscait_bots()
     local url = "https://sscaitournament.com/api/bots.php"
     local chunks = {}
@@ -20,19 +19,18 @@ function bots.get_sscait_bots()
         sink = ltn12.sink.table(chunks)
     }
     local response = table.concat(chunks)
-    print(response)
+    return json.decode(response)
 end
 
 function bots.get_bot()
-    local sscait = bots.get_sscait_bots()
+    local available = bots.get_sscait_bots()
 end
 
 function bots.try_download()
 end
 
+local available = bots.get_sscait_bots()
 
-bots.get_sscait_bots()
+print(available)
 
-
---
 return bots
