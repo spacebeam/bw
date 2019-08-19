@@ -3,6 +3,7 @@
 --
 local argparse = require("argparse")
 local turbo = require("turbo")
+local socket = require("socket")
 local uuid = require("uuid")
 local options = require("bw.options")
 
@@ -13,6 +14,8 @@ local args = parser:parse()
 
 local config = options.get_options(args['config'])
 
+-- init random seed
+uuid.randomseed(socket.gettime()*10000)
 -- Session ID
 local session_uuid = uuid()
 

@@ -20,6 +20,7 @@ dependencies = {
   "lua == 5.1",
   "argparse",
   "luasocket",
+  "luafilesystem",
   "lzmq-ffi",
   "inifile",
   "turbo",

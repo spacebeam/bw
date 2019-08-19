@@ -24,7 +24,7 @@ local conf = options.get_options("../include/bw.yml")
 -- Spawning fighting bots at 
 parser:option("-d --directory", "StarCraft 1.16.1 directory", "/opt/StarCraft")
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
-parser:option("-m --map", "is not the territory", "maps/download/Fighting\\ Spirit.scx")
+parser:option("-m --map", "is not territory", "maps/download/Fighting\\ Spirit.scx")
 -- CLI bw command
 parser:command_target("command")
 parser:command("start")
@@ -38,6 +38,13 @@ local config = options.get_session_conf(args['directory'])
 if args['command'] == 'start' then
     print(config)
     print(args['bots'])
+
+    
+    --bots.get_bot()
+    --bots.get_sscait_bots()
+    --bots.try_download()
+
+
     print(args['map'])
     print(args['directory'])
     -- Something completely different

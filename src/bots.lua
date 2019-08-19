@@ -9,6 +9,14 @@ local bots = {}
 --
 
 -- !
+function bots.get_bot()
+end
+
+function bots.get_sscait_bots()
+end
+
+function bots.try_download()
+end
 
 --
 return bots
