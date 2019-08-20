@@ -1,18 +1,21 @@
 local https = require("ssl.https")
 local tools = require("bw.tools")
+local lyaml = require("lyaml")
 local yaml = require("bw.lib.yaml")
 local json = require("bw.lib.json")
 local lfs = require("lfs")
 
---
-supported_bwapi = {
-    ["4.4.0"] = "cf7a19fe79fad87f88177c6e327eaedc",
-    ["4.2.0"] = "2f6fb401c0dcf65925ee7ad34dc6414a",
-    ["4.1.2"] = "1364390d0aa085fba6ac11b7177797b0",
-}
---
 local bots = {}
---
+
+function bots.supported_bwapi(md5sum)
+    local bwapi = {
+        ["1364390d0aa085fba6ac11b7177797b0"] = "4.1.2",
+        ["2f6fb401c0dcf65925ee7ad34dc6414a"] = "4.2.0",
+        ["cf7a19fe79fad87f88177c6e327eaedc"] = "4.4.0",
+    }
+    return bwapi[md5sum]
+end
+
 function bots.get_sscait_bots()
     local url = "https://sscaitournament.com/api/bots.php"
     local chunks = {}
@@ -31,14 +34,14 @@ function bots.try_download(spec, home)
     lfs.mkdir(home)
     local bot = {}
     tools.download_extract_zip(spec['botBinary'], home .. "/AI")
-    tools.download_file(spec['bwapiDLL'], home .. "/BWAPI.dll")
+    local file = home .. "/BWAPI.dll"
+    tools.download_file(spec['bwapiDLL'], file)
     lfs.mkdir(home.."/read")
     lfs.mkdir(home.."/write")
     -- And Now for Something Completely Different
     -- please gen bot.yml from spec
     bot["name"] = spec['name']
     bot["race"] = spec['race']
-
     if spec['botType'] ==  "AI_MODULE" then
         bot['type'] = "DLL"
     elseif spec['botType'] == "JAVA_MIRROR" then
@@ -46,12 +49,10 @@ function bots.try_download(spec, home)
     elseif spec['botType'] == "EXE" then
         bot["type"] = "EXE"
     end
-
-    print(bot)
-
-    --bot["bwapi"] =
-    -- dumps bot into home/bot.yml
-    -- !
+    bot["bwapi"] = bots.supported_bwapi(tools.md5file(file))
+    local file = io.open(home .. "/bot.yml",'w')
+    file:write(lyaml.dump({bot}))
+    file:close()
 end
 
 function bots.get_bot(name, bots_directory)

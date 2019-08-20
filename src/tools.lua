@@ -29,12 +29,20 @@ function tools.read_file(file)
     return content
 end
 
-function tools.all_trim()
+function tools.all_trim(s)
     return s:match("^%s*(.-)%s*$")
 end
 
-function tools.md5sum(value)
+function tools.md5value(value)
     local command = "echo -n '" .. value .."' | md5sum | cut -f1 -d' ' "
+    local handle = io.popen(command)
+    local result = handle:read("*a")
+    handle:close()
+    return tools.all_trim(result)
+end
+
+function tools.md5file(file)
+    local command = "md5sum " .. file .. " | cut -f1 -d' '"
     local handle = io.popen(command)
     local result = handle:read("*a")
     handle:close()
