@@ -24,39 +24,38 @@ function bots.get_sscait_bots()
     return json.decode(response)
 end
 
-function bots.try_download()
+function bots.try_download(spec)
+    print("Trying download " .. spec['name'])
 end
 
-function bots.get_bot(name)
+function bots.get_bot(name, bots_directory)
     local available = bots.get_sscait_bots()
     local names = {}
+    local spec = {}
     for i, v in ipairs(available) do names[i] = v["name"] end
     for _, v in pairs(names) do
         if v == name then
 
-            print(name)
+            local home = lfs.chdir(bots_directory .. "/" .. name)
 
-            -- SELF_BOT_DIR/NAME !?
-            
-            --local home = SELF_BOT_DIR/NAME
-            --if not os.path.exists(home)
-            --    bot = json available
-            --    print(bot)
-            --    bot_spec = bots.try_download(bot)
-
-            --    if bot_spec then
-            --        print("Successfully downloaded " .. name .. " from SSCAIT")
-            --    end
-            --end
-
+            if not home then
+                for i, v in ipairs(available) do
+                    if v['name'] == name then
+                        spec = v
+                        break
+                    end
+                end
+                bot = bots.try_download(spec)
+                if bot then
+                    print("Successfully downloaded " .. name .. " from SSCAIT")
+                end
+            else
+                print(name .. ' already installed')
+            end
             break
         end
     end
-    --return home 
+    return spec 
 end
-
---  
-bots.get_bot('Ophelia')
-bots.get_bot('BananaBrain')
 
 return bots

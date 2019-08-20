@@ -2,10 +2,14 @@
 --
 -- StarCraft:Brood War bots running inside a Singularity Linux® Container
 --
+
+local lfs = require("lfs")
+
 local argparse = require("argparse")
 local socket = require("socket")
 local http = require("socket.http")
 local uuid = require("uuid")
+local bots = require("bw.bots")
 local messages = require("bw.messages")
 local options = require("bw.options")
 local version = require("bw.version")
@@ -41,6 +45,11 @@ if args['command'] == 'start' then
     for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
     if #stars == 1 then
         print("CPU 1 vs Player 1")
+        if lfs.chdir(config['bots']) then
+            print(stars[1] .. " against you!")
+            cpu_1 = bots.get_bot(stars[1], config['bots'])
+            print(cpu_1)
+        end
     elseif #stars == 2 then
         print("CPU 1 vs CPU 2")
     else
