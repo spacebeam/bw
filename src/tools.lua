@@ -8,13 +8,10 @@ local ini = require("inifile")
 local tools = {}
 
 function tools.download_extract_zip(url, destination)
-    print(url)
-    print(destination)
     lfs.mkdir(destination)    
     lfs.chdir(destination)
     tools.download_file(url, './bot.zip')
-    -- extract and delete zip file
-    -- !
+    os.execute("unzip bot.zip && rm bot.zip")
 end
 
 function tools.download_file(url, destination)
