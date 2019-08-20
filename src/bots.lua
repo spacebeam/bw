@@ -27,14 +27,13 @@ end
 
 function bots.try_download(spec, home)
     print("Trying download " .. spec['name'] .. " into " .. home)
-    
     lfs.mkdir(home)
-    
     tools.download_extract_zip(spec['botBinary'], home .. "/AI")
     tools.download_file(spec['bwapiDLL'], home .. "/BWAPI.dll")
-    
     lfs.mkdir(home.."/read")
     lfs.mkdir(home.."/write")
+    -- And Now for Something Completely Different
+    -- please gen bot.yml from spec
 end
 
 function bots.get_bot(name, bots_directory)
