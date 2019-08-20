@@ -50,6 +50,7 @@ function bots.try_download(spec, home)
     local file = io.open(home .. "/bot.yml",'w')
     file:write(lyaml.dump({bot}))
     file:close()
+    return bot
 end
 
 function bots.get_bot(name, bots_directory)
@@ -72,12 +73,15 @@ function bots.get_bot(name, bots_directory)
                     print("Successfully downloaded " .. name .. " from SSCAIT")
                 end
             else
+                
+                -- if already exists load bot.yml
+                
                 print(name .. ' already installed')
             end
             break
         end
     end
-    return spec 
+    return bot 
 end
 
 return bots
