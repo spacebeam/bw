@@ -9,6 +9,7 @@ local tools = {}
 function tools.download_extract_zip(url, destination)
     print(url)
     print(destination)
+    tools.download_file(url, botbinary)
 end
 
 function tools.download_file(url, destination)

@@ -30,7 +30,7 @@ function bots.try_download(spec, home)
     
     lfs.mkdir(home)
     
-    --tools.download_extract_zip(spec['botBinary'], home .. "/AI")
+    tools.download_extract_zip(spec['botBinary'], home .. "/AI")
     tools.download_file(spec['bwapiDLL'], home .. "/BWAPI.dll")
     
     lfs.mkdir(home.."/read")
