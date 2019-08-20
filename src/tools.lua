@@ -7,19 +7,19 @@ local ini = require("inifile")
 
 local tools = {}
 
-function tools.download_extract_zip(url, destination)
-    lfs.mkdir(destination)    
-    lfs.chdir(destination)
-    tools.download_file(url, './bot.zip')
-    os.execute("unzip bot.zip && rm bot.zip")
-end
-
 function tools.download_file(url, destination)
     local file = ltn12.sink.file(io.open(destination, 'w'))
     https.request {
         url = url,
         sink = file,
     }
+end
+
+function tools.download_extract_zip(url, destination)
+    lfs.mkdir(destination)    
+    lfs.chdir(destination)
+    tools.download_file(url, './bot.zip')
+    os.execute("unzip bot.zip && rm bot.zip")
 end
 
 function tools.read_file(file)
