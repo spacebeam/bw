@@ -1,7 +1,6 @@
 local https = require("ssl.https")
 local tools = require("bw.tools")
 local lyaml = require("lyaml")
-local yaml = require("bw.lib.yaml")
 local json = require("bw.lib.json")
 local lfs = require("lfs")
 
@@ -38,8 +37,6 @@ function bots.try_download(spec, home)
     tools.download_file(spec['bwapiDLL'], file)
     lfs.mkdir(home.."/read")
     lfs.mkdir(home.."/write")
-    -- And Now for Something Completely Different
-    -- please gen bot.yml from spec
     bot["name"] = spec['name']
     bot["race"] = spec['race']
     if spec['botType'] ==  "AI_MODULE" then
