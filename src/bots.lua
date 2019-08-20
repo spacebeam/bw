@@ -1,4 +1,5 @@
 local https = require("ssl.https")
+local tools = require("bw.tools")
 local json = require("bw.lib.json")
 local lfs = require("lfs")
 
@@ -24,8 +25,16 @@ function bots.get_sscait_bots()
     return json.decode(response)
 end
 
-function bots.try_download(spec)
-    print("Trying download " .. spec['name'])
+function bots.try_download(spec, home)
+    print("Trying download " .. spec['name'] .. " into " .. home)
+    
+    lfs.mkdir(home)
+    
+    --tools.download_extract_zip(spec['botBinary'], home .. "/AI")
+    tools.download_file(spec['bwapiDLL'], home .. "/BWAPI.dll")
+    
+    lfs.mkdir(home.."/read")
+    lfs.mkdir(home.."/write")
 end
 
 function bots.get_bot(name, bots_directory)
@@ -35,17 +44,15 @@ function bots.get_bot(name, bots_directory)
     for i, v in ipairs(available) do names[i] = v["name"] end
     for _, v in pairs(names) do
         if v == name then
-
-            local home = lfs.chdir(bots_directory .. "/" .. name)
-
-            if not home then
+            local home = bots_directory .. name
+            if not lfs.chdir(home) then
                 for i, v in ipairs(available) do
                     if v['name'] == name then
                         spec = v
                         break
                     end
                 end
-                bot = bots.try_download(spec)
+                bot = bots.try_download(spec, home)
                 if bot then
                     print("Successfully downloaded " .. name .. " from SSCAIT")
                 end

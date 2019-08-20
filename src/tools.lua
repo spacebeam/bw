@@ -1,10 +1,23 @@
 --
 -- Everyone's tool library
 --
-
+local https = require("ssl.https")
 local ini = require("inifile")
 
 local tools = {}
+
+function tools.download_extract_zip(url, destination)
+    print(url)
+    print(destination)
+end
+
+function tools.download_file(url, destination)
+    local file = ltn12.sink.file(io.open(destination, 'w'))
+    https.request {
+        url = url,
+        sink = file,
+    }
+end
 
 function tools.read_file(file)
     local f = assert(io.open(file, "rb"))

@@ -55,11 +55,6 @@ if args['command'] == 'start' then
     else
         print(#stars)
     end
-
-    --bots.get_bot()
-    --bots.get_sscait_bots()
-    --bots.try_download()
-
     print(args['map'])
     print(args['directory'])
     -- Something completely different
