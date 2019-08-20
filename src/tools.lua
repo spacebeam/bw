@@ -2,6 +2,7 @@
 -- Everyone's tool library
 --
 local https = require("ssl.https")
+local lfs = require("lfs")
 local ini = require("inifile")
 
 local tools = {}
@@ -9,7 +10,11 @@ local tools = {}
 function tools.download_extract_zip(url, destination)
     print(url)
     print(destination)
-    tools.download_file(url, botbinary)
+    lfs.mkdir(destination)    
+    lfs.chdir(destination)
+    tools.download_file(url, './bot.zip')
+    -- extract and delete zip file
+    -- !
 end
 
 function tools.download_file(url, destination)
