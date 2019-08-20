@@ -1,5 +1,6 @@
 local https = require("ssl.https")
 local tools = require("bw.tools")
+local yaml = require("bw.lib.yaml")
 local json = require("bw.lib.json")
 local lfs = require("lfs")
 
@@ -28,12 +29,29 @@ end
 function bots.try_download(spec, home)
     print("Trying download " .. spec['name'] .. " into " .. home)
     lfs.mkdir(home)
+    local bot = {}
     tools.download_extract_zip(spec['botBinary'], home .. "/AI")
     tools.download_file(spec['bwapiDLL'], home .. "/BWAPI.dll")
     lfs.mkdir(home.."/read")
     lfs.mkdir(home.."/write")
     -- And Now for Something Completely Different
     -- please gen bot.yml from spec
+    bot["name"] = spec['name']
+    bot["race"] = spec['race']
+
+    if spec['botType'] ==  "AI_MODULE" then
+        bot['type'] = "DLL"
+    elseif spec['botType'] == "JAVA_MIRROR" then
+        bot["type"] = "Java"
+    elseif spec['botType'] == "EXE" then
+        bot["type"] = "EXE"
+    end
+
+    print(bot)
+
+    --bot["bwapi"] =
+    -- dumps bot into home/bot.yml
+    -- !
 end
 
 function bots.get_bot(name, bots_directory)
