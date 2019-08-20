@@ -37,13 +37,19 @@ local args = parser:parse()
 local config = options.get_session_conf(args['directory'])
 if args['command'] == 'start' then
     print(config)
-    print(args['bots'])
+    stars = {}
+    for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
+    if #stars == 1 then
+        print("CPU 1 vs Player 1")
+    elseif #stars == 2 then
+        print("CPU 1 vs CPU 2")
+    else
+        print(#stars)
+    end
 
-    
     --bots.get_bot()
     --bots.get_sscait_bots()
     --bots.try_download()
-
 
     print(args['map'])
     print(args['directory'])
