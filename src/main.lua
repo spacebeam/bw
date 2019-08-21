@@ -2,9 +2,7 @@
 --
 -- StarCraft:Brood War bots running inside a Singularity Linux® Container
 --
-
 local lfs = require("lfs")
-
 local argparse = require("argparse")
 local socket = require("socket")
 local http = require("socket.http")
