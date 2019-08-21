@@ -22,6 +22,8 @@ dependencies = {
   "luasocket",
   "luafilesystem",
   "lzmq-ffi",
+  "lyaml",
+  "luasec",
   "inifile",
   "turbo",
   "uuid"
