@@ -29,15 +29,14 @@ parser:option("-b --bots", "Prepare to fight", "Ophelia")
 parser:option("-m --map", "is not territory", "maps/download/Fighting\\ Spirit.scx")
 -- CLI bw command
 parser:command_target("command")
-parser:command("start")
+parser:command("play")
 parser:command("status")
-parser:command("stop")
 -- Show your version
 parser:command("version")
 -- Parse your arguments
 local args = parser:parse()
 local config = options.get_session_conf(args['directory'])
-if args['command'] == 'start' then
+if args['command'] == 'play' then
     print(config)
     stars = {}
     for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
@@ -56,8 +55,6 @@ if args['command'] == 'start' then
     print(args['map'])
     print(args['directory'])
     -- Something completely different
-elseif args['command'] == 'stop' then
-    print('Stop ' .. messages[math.random(#messages)])
 elseif args['command'] == 'status' then
     local url = "http://" .. conf['host'] .. ":" .. tostring(conf['port']) .. "/status/"
     local res, code, response_headers = http.request{
