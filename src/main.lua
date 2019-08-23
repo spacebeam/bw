@@ -37,6 +37,10 @@ parser:command("version")
 local args = parser:parse()
 local config = options.get_session_conf(args['directory'])
 if args['command'] == 'play' then
+
+    -- imagine that status is a function 
+    -- if status, continue else break.
+    
     print(config)
     stars = {}
     for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
