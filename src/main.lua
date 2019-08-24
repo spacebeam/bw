@@ -22,7 +22,7 @@ local parser = argparse() {
    epilog = "It can download and launch Win32 C++ and Java bots " .. 
    "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0."
 }
-local conf = options.get_options("../include/bw.yml")
+local conf = options.get_options("/opt/bw/include/bw.yml")
 -- Spawning fighting bots at 
 parser:option("-d --directory", "StarCraft 1.16.1 directory", "/opt/StarCraft")
 parser:option("-b --bots", "Prepare to fight", "Ophelia")

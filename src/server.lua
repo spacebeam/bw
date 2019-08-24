@@ -8,7 +8,7 @@ local uuid = require("uuid")
 local options = require("bw.options")
 
 local parser = argparse("server.lua, handles the bot fights")
-    parser:option("-c --config", "configuration file.", "../include/bw.yml")
+    parser:option("-c --config", "configuration file.", "/opt/bw/include/bw.yml")
 
 local args = parser:parse()
 
