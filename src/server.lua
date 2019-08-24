@@ -1,3 +1,4 @@
+#!/usr/bin/env luajit
 --
 -- The Computer League server.lua file
 --
