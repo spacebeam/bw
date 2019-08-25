@@ -57,6 +57,7 @@ function bots.get_bot(name, bots_directory)
     local available = bots.get_sscait_bots()
     local names = {}
     local spec = {}
+    local bot = false
     for i, v in ipairs(available) do names[i] = v["name"] end
     for _, v in pairs(names) do
         if v == name then
@@ -73,10 +74,10 @@ function bots.get_bot(name, bots_directory)
                     print("Successfully downloaded " .. name .. " from SSCAIT")
                 end
             else
-                
                 -- if already exists load bot.yml
-                
                 print(name .. ' already installed')
+                local file = tools.read_file(home .. "/bot.yml")
+                bot = lyaml.load(file)
             end
             break
         end
