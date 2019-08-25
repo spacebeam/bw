@@ -10,6 +10,7 @@ local uuid = require("uuid")
 local bots = require("bw.bots")
 local messages = require("bw.messages")
 local options = require("bw.options")
+local tools = require("bw.tools")
 local version = require("bw.version")
 -- init random seed
 uuid.randomseed(socket.gettime()*10000)
@@ -37,28 +38,35 @@ parser:command("version")
 local args = parser:parse()
 local config = options.get_session_conf(args['directory'])
 if args['command'] == 'play' then
-
-    -- imagine that status is a function 
-    -- if status, continue else break.
-    
+    -- show configuration from file
+    print(conf) 
+    -- this session's configuration
     print(config)
-    stars = {}
-    for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
-    if #stars == 1 then
-        print("CPU 1 vs Player 1")
-        if lfs.chdir(config['bots']) then
-            print(stars[1] .. " against you!")
-            cpu_1 = bots.get_bot(stars[1], config['bots'])
-            print(cpu_1)
+    -- this are two different things since we can call bw with 
+    -- custom StarCraft 1.16.1 directory, fighting bots and map. 
+    local status = tools.check_status_code(conf["host"], conf["port"])
+    if status == 200 then
+        -- !
+        local stars = {}
+        for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
+        if #stars == 1 then
+            print("CPU 1 vs Player 1")
+            if lfs.chdir(config['bots']) then
+                print(stars[1] .. " against you!")
+                cpu_1 = bots.get_bot(stars[1], config['bots'])
+                print(cpu_1)
+            end
+        elseif #stars == 2 then
+            print("CPU 1 vs CPU 2")
+        else
+            print(#stars)
         end
-    elseif #stars == 2 then
-        print("CPU 1 vs CPU 2")
+        print(args['map'])
+        print(args['directory'])
     else
-        print(#stars)
+        -- Something completely different
+        print(messages[math.random(#messages)])
     end
-    print(args['map'])
-    print(args['directory'])
-    -- Something completely different
 elseif args['command'] == 'status' then
     local url = "http://" .. conf['host'] .. ":" .. tostring(conf['port']) .. "/status/"
     local res, code, response_headers = http.request{

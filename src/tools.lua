@@ -1,11 +1,29 @@
 --
 -- Everyone's tool library
 --
+local http = require("socket.http")
 local https = require("ssl.https")
 local lfs = require("lfs")
 local ini = require("inifile")
 
 local tools = {}
+
+function tools.check_status_code(host, port)
+    local url = "http://" .. host .. ":" .. port .. "/status/"
+    local res, code, res_headers = http.request{
+        url = url,
+        method = "GET",
+        headers = {
+            ["Content-Type"] = "application/json"
+        },
+    }
+    if code == 'connection refused' then
+        print(code)
+    else
+        print(code .. ' connection established')
+    end
+    return code
+end
 
 function tools.download_file(url, destination)
     local file = ltn12.sink.file(io.open(destination, 'w'))
