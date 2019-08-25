@@ -31,7 +31,6 @@ parser:option("-m --map", "is not territory", "maps/download/Fighting\\ Spirit.s
 parser:command_target("command")
 parser:command("play")
 parser:command("status")
--- Show your version
 parser:command("version")
 -- Parse your arguments
 local args = parser:parse()
