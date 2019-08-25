@@ -39,9 +39,9 @@ local args = parser:parse()
 local config = options.get_session_conf(args['directory'])
 if args['command'] == 'play' then
     -- show configuration from file
-    print(conf) 
+    --print(conf) 
     -- this session's configuration
-    print(config)
+    --print(config)
     -- this are two different things since we can call bw with 
     -- custom StarCraft 1.16.1 directory, fighting bots and map. 
     local status = tools.check_status_code(conf["host"], conf["port"])
