@@ -65,7 +65,7 @@ if args['command'] == 'play' then
         print(messages[math.random(#messages)])
     end
 elseif args['command'] == 'status' then
-    local code = tools.check_status_code(conf['host'], conf['port'] )
+    local code = tools.check_status_code(conf['host'], conf['port'])
     if code == 'connection refused' then
         print(code)
     else
