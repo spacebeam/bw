@@ -5,7 +5,6 @@
 local lfs = require("lfs")
 local argparse = require("argparse")
 local socket = require("socket")
-local http = require("socket.http")
 local uuid = require("uuid")
 local bots = require("bw.bots")
 local messages = require("bw.messages")
@@ -46,7 +45,6 @@ if args['command'] == 'play' then
     -- custom StarCraft 1.16.1 directory, fighting bots and map. 
     local status = tools.check_status_code(conf["host"], conf["port"])
     if status == 200 then
-        -- !
         local stars = {}
         for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
         if #stars == 1 then
@@ -68,14 +66,7 @@ if args['command'] == 'play' then
         print(messages[math.random(#messages)])
     end
 elseif args['command'] == 'status' then
-    local url = "http://" .. conf['host'] .. ":" .. tostring(conf['port']) .. "/status/"
-    local res, code, response_headers = http.request{
-        url = url,
-        method = "GET",
-        headers = {
-            ["Content-Type"] = "application/json"
-        },
-    }
+    local code = tools.check_status_code(conf['host'], conf['port'] )
     if code == 'connection refused' then
         print(code)
     else
