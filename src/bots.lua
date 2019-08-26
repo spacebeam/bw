@@ -59,6 +59,7 @@ function bots.get_bot(name, bots_directory)
     local spec = {}
     local bot = false
     for i, v in ipairs(available) do names[i] = v["name"] end
+    table.insert(names, name)
     for _, v in pairs(names) do
         if v == name then
             local home = bots_directory .. name
