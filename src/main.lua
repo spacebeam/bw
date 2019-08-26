@@ -65,12 +65,7 @@ if args['command'] == 'play' then
         print(messages[math.random(#messages)])
     end
 elseif args['command'] == 'status' then
-    local code = tools.check_status_code(conf['host'], conf['port'])
-    if code == 'connection refused' then
-        print(code)
-    else
-        print(code .. ' connection established')
-    end
+    tools.check_status_code(conf['host'], conf['port'])
     print(messages[math.random(#messages)])
 elseif args['command'] == 'version' then
     print('bw version ' .. version)
