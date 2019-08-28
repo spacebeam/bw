@@ -24,7 +24,6 @@ local parser = argparse() {
 }
 local conf = options.get_options("/opt/bw/include/bw.yml")
 -- Spawning fighting bots at 
-parser:option("-d --directory", "StarCraft 1.16.1 directory", "/opt/StarCraft")
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
 parser:option("-m --map", "is not territory", "maps/download/Fighting\\ Spirit.scx")
 -- CLI bw command
@@ -34,6 +33,8 @@ parser:command("status")
 parser:command("version")
 -- Parse your arguments
 local args = parser:parse()
+-- StarCraft 1.16.1 directory
+args['directory'] = "/opt/StarCraft"
 local config = options.get_session_conf(args['directory'])
 if args['command'] == 'play' then
     -- show configuration from file
@@ -58,6 +59,9 @@ if args['command'] == 'play' then
         else
             print(#stars)
         end
+
+        tools.update_registry()
+
         print(args['map'])
         print(args['directory'])
     else

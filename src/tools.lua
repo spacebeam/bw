@@ -14,6 +14,7 @@ function tools.update_registry()
     --
     -- Playing with regedit!
     --
+    os.execute("bash /opt/bw/include/wine_registry.sh")
 end
 
 function tools.prepare_bwapi()
