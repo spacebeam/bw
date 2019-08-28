@@ -2,9 +2,7 @@
 
 function update_registry() {
     REG_KEY="HKEY_CURRENT_USER\Software\Blizzard Entertainment\Starcraft"
-    
     wine REG ADD "${REG_KEY}" /v bldgnoise /t REG_DWORD /d 00000004 /f > /dev/null
-    
     wine REG ADD "${REG_KEY}" /v ColorCycle /t REG_DWORD /d 00000001 /f > /dev/null
     wine REG ADD "${REG_KEY}" /v CPUThrottle /t REG_DWORD /d 00000001 /f > /dev/null
     wine REG ADD "${REG_KEY}" /v intro /t REG_DWORD /d 00000200 /f > /dev/null
@@ -13,7 +11,6 @@ function update_registry() {
     wine REG ADD "${REG_KEY}" /v kscroll /t REG_DWORD /d 00000003 /f > /dev/null
     wine REG ADD "${REG_KEY}" /v m_mscroll /t REG_DWORD /d 00000003 /f > /dev/null
     wine REG ADD "${REG_KEY}" /v m_kscroll /t REG_DWORD /d 00000003 /f > /dev/null
-    
     wine REG ADD "${REG_KEY}" /v speed /t REG_DWORD /d 00000006 /f > /dev/null
     wine REG ADD "${REG_KEY}" /v tip /t REG_DWORD /d 00000000 /f > /dev/null
     wine REG ADD "${REG_KEY}" /v tipnum /t REG_DWORD /d 00000001 /f > /dev/null
