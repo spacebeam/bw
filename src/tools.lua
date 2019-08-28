@@ -10,15 +10,9 @@ local tools = {}
 
 -- (=
 
-function tools.run_proxy_script()
+function tools.update_registry()
     --
-    -- Bot might use an server/client infrastructure, so connect it after the game has started
-    --
-end
-
-function tools.detect_game_finished()
-    -- 
-    -- Checking game status...
+    -- Playing with regedit!
     --
 end
 
@@ -46,9 +40,15 @@ function tools.start_game()
     --
 end
 
-function tools.update_registry()
+function tools.run_proxy_script()
     --
-    -- Playing with regedit!
+    -- Bot might use an server/client infrastructure, so connect it after the game has started
+    --
+end
+
+function tools.detect_game_finished()
+    -- 
+    -- Checking game status...
     --
 end
 
