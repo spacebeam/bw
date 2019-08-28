@@ -10,61 +10,73 @@ local tools = {}
 
 -- (=
 
-function tools.check_bot_requirements()
-    --
-end
-
 function tools.run_proxy_script()
+    --
+    -- Bot might use an server/client infrastructure, so connect it after the game has started
     --
 end
 
 function tools.detect_game_finished()
+    -- 
+    -- Checking game status...
     --
 end
 
 function tools.prepare_bwapi()
     --
-end
-
-function tools.prepare_character()
+    -- Preparing bwapi.ini
     --
 end
 
 function tools.prepare_tm()
     --
+    -- Preparing tm.dll
+    --
 end
 
 function tools.start_bot()
+    --
+    -- Launch the bot!
+    --
 end
 
 function tools.start_game()
+    --
+    -- Launch the game!
+    --
 end
 
 function tools.update_registry()
+    --
+    -- Playing with regedit!
+    --
 end
 
 function tools.clean_starcraft() 
-end
-
-function tools.clean_write()
+    --
+    -- Delete the old game state file
+    --
 end
 
 function tools.kill_starcraft()
+    --
+    -- Killing StarCraft...
+    --
 end
 
 -- O=
 
 -- beginning maps
 function tools.download_sscait_maps()
-    --
+    -- 0
 end
 
 function tools.download_btwa_caches()
-    --
+    -- 1
 end
 
 function tools.check_maps_exist()
-    --
+    -- 2
 end
 -- end of maps
 
