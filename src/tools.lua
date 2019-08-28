@@ -8,22 +8,6 @@ local ini = require("inifile")
 
 local tools = {}
 
-
--- beginning maps
-function tools.download_sscait_maps()
-    --
-end
-
-function tools.download_btwa_caches()
-    --
-end
-
-function tools.check_maps_exist()
-    --
-end
--- end of maps
-
-
 -- (=
 
 function tools.check_bot_requirements()
@@ -56,7 +40,6 @@ end
 function tools.start_game()
 end
 
-
 function tools.update_registry()
 end
 
@@ -71,6 +54,19 @@ end
 
 -- O=
 
+-- beginning maps
+function tools.download_sscait_maps()
+    --
+end
+
+function tools.download_btwa_caches()
+    --
+end
+
+function tools.check_maps_exist()
+    --
+end
+-- end of maps
 
 function tools.check_status_code(host, port)
     local url = "http://" .. host .. ":" .. port .. "/status/"
