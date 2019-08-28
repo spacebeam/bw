@@ -8,6 +8,70 @@ local ini = require("inifile")
 
 local tools = {}
 
+
+-- beginning maps
+function tools.download_sscait_maps()
+    --
+end
+
+function tools.download_btwa_caches()
+    --
+end
+
+function tools.check_maps_exist()
+    --
+end
+-- end of maps
+
+
+-- (=
+
+function tools.check_bot_requirements()
+    --
+end
+
+function tools.run_proxy_script()
+    --
+end
+
+function tools.detect_game_finished()
+    --
+end
+
+function tools.prepare_bwapi()
+    --
+end
+
+function tools.prepare_character()
+    --
+end
+
+function tools.prepare_tm()
+    --
+end
+
+function tools.start_bot()
+end
+
+function tools.start_game()
+end
+
+
+function tools.update_registry()
+end
+
+function tools.clean_starcraft() 
+end
+
+function tools.clean_write()
+end
+
+function tools.kill_starcraft()
+end
+
+-- O=
+
+
 function tools.check_status_code(host, port)
     local url = "http://" .. host .. ":" .. port .. "/status/"
     local res, code, res_headers = http.request{
