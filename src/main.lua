@@ -62,7 +62,7 @@ if args['command'] == 'play' then
 
         tools.update_registry()
 
-        tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args[map])
+        tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args[map], conf, config)
 
         tools.prepare_tm(cpu_1)
 
