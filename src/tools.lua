@@ -17,22 +17,19 @@ function tools.update_registry()
     os.execute("bash /opt/bw/include/wine_registry.sh")
 end
 
-function tools.prepare_bwapi(bwapi, bot, map, conf, config)
+function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     --
     -- Preparing bwapi.ini
     --
-    print('Feel the vibration of tectonic motion')
-
     bwapi["ai"]["ai"] = "bwapi-data\\AI\\" .. bot['name'] .. ".dll"
-    bwapi["ai"]["tournament"] = conf["tournament"]["module"]
+    bwapi["ai"]["tournament"] = "NULL" --conf["tournament"]["module"]
     bwapi["auto_menu"]["race"] = bot["race"]
     bwapi["auto_menu"]["wait_for_min_players"] = 2
     bwapi["starcraft"]["speed_override"] = conf["tournament"]["local_speed"]
     bwapi["auto_menu"]["game"] = bot["name"]
     bwapi["auto_menu"]["map"] = map
-    -- 
-    print(config)
-
+    -- save bwapi.ini 
+    ini.save(session["bwapi"]["data"].."/bwapi.ini", bwapi)
 end
 
 function tools.prepare_tm(bot)
