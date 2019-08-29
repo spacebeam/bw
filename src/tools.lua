@@ -17,11 +17,19 @@ function tools.update_registry()
     os.execute("bash /opt/bw/include/wine_registry.sh")
 end
 
-function tools.prepare_bwapi(bwapi)
+function tools.prepare_bwapi(bwapi, bot, map)
     --
     -- Preparing bwapi.ini
     --
     print('Feel the vibration of tectonic motion')
+
+    bwapi["ai"]["ai"] = "bwapi-data\\AI\\" .. bot['name'] .. ".dll"
+    bwapi["auto_menu"]["race"] = bot['race']
+    bwapi["auto_menu"]["wait_for_min_players"] = 2
+    --print(bwapi["auto_menu"]["speed_override"])
+    bwapi["auto_menu"]["game"] = bot['name']
+    bwapi["auto_menu"]["map"] = map
+
     print(bwapi)
 
 end
@@ -32,6 +40,8 @@ function tools.prepare_tm(bot)
     --
     print('binary stream')
     print(bot)
+    -- cp ${TM_DIR}/${BOT_BWAPI}.dll $SC_DIR/tm.dll
+
 end
 
 function tools.start_bot()
