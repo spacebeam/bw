@@ -17,16 +17,21 @@ function tools.update_registry()
     os.execute("bash /opt/bw/include/wine_registry.sh")
 end
 
-function tools.prepare_bwapi()
+function tools.prepare_bwapi(bwapi)
     --
     -- Preparing bwapi.ini
     --
+    print('Feel the vibration of tectonic motion')
+    print(bwapi)
+
 end
 
-function tools.prepare_tm()
+function tools.prepare_tm(bot)
     --
     -- Preparing tm.dll
     --
+    print('binary stream')
+    print(bot)
 end
 
 function tools.start_bot()
@@ -141,7 +146,7 @@ function tools.md5file(file)
 end
 
 function tools.get_bwapi_ini()
-    local bwapi = ini.parse("../include/bwapi-data/bwapi.ini")
+    local bwapi = ini.parse("/opt/bw/include/bwapi-data/bwapi.ini")
     -- BWAPI version 4.2.0 and higher ONLY
     -- FIRST (default), use the first character in the list
     -- WAIT, stop at this screen

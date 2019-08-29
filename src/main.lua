@@ -62,6 +62,10 @@ if args['command'] == 'play' then
 
         tools.update_registry()
 
+        tools.prepare_bwapi(tools.get_bwapi_ini())
+
+        tools.prepare_tm(cpu_1)
+
         print(args['map'])
         print(args['directory'])
     else
