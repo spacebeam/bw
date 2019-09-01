@@ -17,10 +17,13 @@ function tools.update_registry()
     os.execute("bash /opt/bw/include/wine_registry.sh")
 end
 
-function tools.prepare_ai(bwapi, bot, conf, session)
+function tools.prepare_ai(bot, session)
     --
     -- Preparing to fight
     --
+    print("Why do you need this?")
+    print(bot)
+    print(session)
 end
 
 function tools.prepare_bwapi(bwapi, bot, map, conf, session)
