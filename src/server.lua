@@ -55,5 +55,6 @@ local application = turbo.web.Application:new({
     {"/status/", StatusHandler}
 })
 -- I/O application start listen on TCP port.
+print(config['port'])
 application:listen(config['port'])
 turbo.ioloop.instance():start()

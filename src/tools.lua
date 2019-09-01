@@ -21,9 +21,10 @@ function tools.prepare_ai(bot, session)
     --
     -- Preparing to fight
     --
-    print("Why do you need this?")
-    print(bot)
-    print(session)
+    os.execute("cp " .. "/opt/bw/include/bwapi-data/"
+        .. bot["bwapi"] .. ".dll " 
+        .. session["bwapi"]["data"] .. "BWAPI.dll")
+    os.execute("cp " .. session["bots"] .. bot["name"] .. "/AI/* " .. session["bwapi"]["ai"])
 end
 
 function tools.prepare_bwapi(bwapi, bot, map, conf, session)
@@ -60,12 +61,6 @@ end
 function tools.start_game()
     --
     -- Launch the game!
-    --
-end
-
-function tools.run_proxy_script()
-    --
-    -- Bot might use an server/client infrastructure, so connect it after the game has started
     --
 end
 
