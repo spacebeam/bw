@@ -2,16 +2,12 @@
 starcraft: /opt/StarCraft
 bots:
     - Ophelia
-    - Blueberry 
 maps:
     - Circuit Breaker
     - Fighting Spirit
     - Overwatch
-    - Tres Pass 
-    - Power Bond
-    - Tau Cross
 host: 127.0.0.1
-port: 1337
+port: 58008 
 speed: Normal
 # tm.dll configuration
 tournament:
