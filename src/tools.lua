@@ -17,6 +17,12 @@ function tools.update_registry()
     os.execute("bash /opt/bw/include/wine_registry.sh")
 end
 
+function tools.prepare_ai(bwapi, bot, conf, session)
+    --
+    -- Preparing to fight
+    --
+end
+
 function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     --
     -- Preparing bwapi.ini
@@ -37,7 +43,7 @@ function tools.prepare_tm(bot)
     -- Preparing tm.dll
     --
     print('binary stream')
-    print(bot)
+    --print(bot)
     -- cp ${TM_DIR}/${BOT_BWAPI}.dll $SC_DIR/tm.dll
 
 end

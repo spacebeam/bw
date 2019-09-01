@@ -35,12 +35,12 @@ parser:command("version")
 local args = parser:parse()
 -- StarCraft 1.16.1 directory
 args['directory'] = "/opt/StarCraft"
-local config = options.get_session_conf(args['directory'])
+local session = options.get_session_conf(args['directory'])
 if args['command'] == 'play' then
     -- show configuration from file
-    print(conf) 
+    --print(conf) 
     -- this session's configuration
-    print(config)
+    --print(session)
     -- this are two different things since we can call bw with 
     -- custom StarCraft 1.16.1 directory, fighting bots and map. 
     local status = tools.check_status_code(conf["host"], conf["port"])
@@ -49,9 +49,9 @@ if args['command'] == 'play' then
         for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
         if #stars == 1 then
             print("CPU 1 vs Player 1")
-            if lfs.chdir(config['bots']) then
+            if lfs.chdir(session['bots']) then
                 print(stars[1] .. " against you!")
-                cpu_1 = bots.get_bot(stars[1], config['bots'])
+                cpu_1 = bots.get_bot(stars[1], session['bots'])
                 print(cpu_1)
             end
         elseif #stars == 2 then
@@ -62,7 +62,7 @@ if args['command'] == 'play' then
 
         tools.update_registry()
 
-        tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args[map], conf, config)
+        tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args[map], conf, session)
 
         tools.prepare_tm(cpu_1)
 
