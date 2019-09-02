@@ -25,7 +25,7 @@ local parser = argparse() {
 local conf = options.get_options("/opt/bw/include/bw.yml")
 -- Spawning fighting bots at 
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
-parser:option("-m --map", "is not territory", "maps/download/Fighting\\ Spirit.scx")
+parser:option("-m --map", "is not territory", "Maps/BroodWar/Fighting\\ Spirit\\ 1.3_iCCup.scx")
 -- CLI bw command
 parser:command_target("command")
 parser:command("play")
@@ -62,11 +62,13 @@ if args['command'] == 'play' then
 
         tools.update_registry()
 
-        tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args[map], conf, session)
+        tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args['map'], conf, session)
 
         tools.prepare_tm(cpu_1)
 
         tools.prepare_ai(cpu_1, session)
+        print('wtf')
+        tools.start_game(cpu_1, args['map'], session)
 
     else
         -- Something completely different

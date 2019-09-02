@@ -8,8 +8,6 @@ local ini = require("inifile")
 
 local tools = {}
 
--- (=
-
 function tools.update_registry()
     --
     -- Playing with regedit!
@@ -31,7 +29,7 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     --
     -- Preparing bwapi.ini
     --
-    bwapi["ai"]["ai"] = "bwapi-data\\AI\\" .. bot['name'] .. ".dll"
+    bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll"
     bwapi["ai"]["tournament"] = "NULL" --conf["tournament"]["module"]
     bwapi["auto_menu"]["race"] = bot["race"]
     bwapi["auto_menu"]["wait_for_min_players"] = 2
@@ -39,28 +37,37 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     bwapi["auto_menu"]["game"] = bot["name"]
     bwapi["auto_menu"]["map"] = map
     -- save bwapi.ini 
-    ini.save(session["bwapi"]["data"].."/bwapi.ini", bwapi)
+    ini.save(session["bwapi"]["data"] .. "/bwapi.ini", bwapi)
 end
 
 function tools.prepare_tm(bot)
     --
     -- Preparing tm.dll
     --
-    print('binary stream')
     --print(bot)
+    print('binary stream')
+    print('binary stream')
+    print('binary stream')
     -- cp ${TM_DIR}/${BOT_BWAPI}.dll $SC_DIR/tm.dll
+end
+
+function tools.start_game(bot, map, session)
+    --
+    -- Launch the game!
+    --
+    local cmd = "cd /opt/StarCraft && wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe -l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name " 
+        .. bot['name'] .. " --game " .. bot['name'] .. " --race " .. string.sub(bot['race'], 1, 1) .. " --map " .. map
+    
+    local file = assert(io.popen(cmd, 'r'))
+    local output = file:read('*all')
+    file:close()
+    print(output)
 
 end
 
 function tools.start_bot()
     --
     -- Launch the bot!
-    --
-end
-
-function tools.start_game()
-    --
-    -- Launch the game!
     --
 end
 
