@@ -52,6 +52,11 @@ if args['command'] == 'play' then
             if lfs.chdir(session['bots']) then
                 print(stars[1] .. " against you!")
                 cpu_1 = bots.get_bot(stars[1], session['bots'])
+                tools.update_registry()
+                tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args['map'], conf, session)
+                tools.prepare_tm(cpu_1)
+                tools.prepare_ai(cpu_1, session)
+                tools.start_game(cpu_1, args['map'], session)
             end
         elseif #stars == 2 then
             print("CPU 1 vs CPU 2")
@@ -60,15 +65,6 @@ if args['command'] == 'play' then
         end
 
 
-        tools.update_registry()
-
-        tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args['map'], conf, session)
-
-        tools.prepare_tm(cpu_1)
-
-        tools.prepare_ai(cpu_1, session)
-        print('wtf')
-        tools.start_game(cpu_1, args['map'], session)
 
     else
         -- Something completely different
