@@ -37,12 +37,6 @@ local args = parser:parse()
 args['directory'] = "/opt/StarCraft"
 local session = options.get_session_conf(args['directory'])
 if args['command'] == 'play' then
-    -- show configuration from file
-    --print(conf) 
-    -- this session's configuration
-    --print(session)
-    -- this are two different things since we can call bw with 
-    -- custom StarCraft 1.16.1 directory, fighting bots and map. 
     local status = tools.check_status_code(conf["host"], conf["port"])
     if status == 200 then
         local stars = {}
@@ -63,9 +57,6 @@ if args['command'] == 'play' then
         else
             print(#stars)
         end
-
-
-
     else
         -- Something completely different
         print(messages[math.random(#messages)])
