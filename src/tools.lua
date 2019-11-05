@@ -19,10 +19,32 @@ function tools.prepare_ai(bot, session)
     --
     -- Preparing to fight
     --
+    local name = bot["name"]:gsub("% ", "+")
     os.execute("cp " .. "/opt/bw/include/bwapi-data/"
         .. bot["bwapi"] .. ".dll " 
         .. session["bwapi"]["data"] .. "BWAPI.dll")
-    os.execute("cp " .. session["bots"] .. bot["name"] .. "/AI/* " .. session["bwapi"]["ai"])
+    os.execute("cp -r " .. session["bots"] .. name .. "/AI/* " .. session["bwapi"]["ai"])
+    if bot["name"] == "Hao+Pan" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/Halo.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "Marian+Devecka" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/KillerBot.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "Chris+Coxe" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/ZZZKBot.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "Lukas+Moravec" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/UAlbertaBot.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "Bryan+Weber" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/CUNYAIModule.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "Antiga" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/Steamhammer.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "Feint" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/Steamhammer.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "Proxy" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/ZergBot.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "XIAOYICOG2019" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/XIAOYI.dll " .. session["bwapi"]["ai"] .. "/" ..  bot["name"] .. ".dll")
+    elseif bot["name"] == "Iron+bot" then
+        os.execute("mv " .. session["bwapi"]["ai"] .. "/Iron.dll " .. session["bwapi"]["ai"] .. "/" .. bot["name"] .. ".dll")
+    end
 end
 
 function tools.prepare_bwapi(bwapi, bot, map, conf, session)
@@ -46,9 +68,15 @@ function tools.prepare_tm(bot)
     --
     --print(bot)
     print('binary stream')
-    print('binary stream')
-    print('binary stream')
     -- cp ${TM_DIR}/${BOT_BWAPI}.dll $SC_DIR/tm.dll
+end
+
+function tools.run_proxy_script(bot, session)
+    --
+    -- Bot might use an server/client infrastructure, so connect it after the game has started
+    --
+    print(bot)
+    print('start proxy')
 end
 
 function tools.start_game(bot, map, session)
@@ -57,18 +85,13 @@ function tools.start_game(bot, map, session)
     --
     lfs.chdir('/opt/StarCraft')
     local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe -l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name " 
-        .. bot['name'] .. " --game " .. bot['name'] .. " --race " .. string.sub(bot['race'], 1, 1) .. " --map " .. map .. " & wine bwheadless.exe -e ./StarCraft.exe --headful"
+        .. bot['name'] .. " --game " .. bot['name'] .. " --race " .. string.sub(bot['race'], 1, 1) .. " --map " .. map 
+        .. " & wine Chaoslauncher/Chaoslauncher.exe"
     
     local file = assert(io.popen(cmd, 'r'))
     local output = file:read('*all')
     file:close()
     print(output)
-end
-
-function tools.start_bot()
-    --
-    -- Launch the bot!
-    --
 end
 
 function tools.detect_game_finished()
@@ -82,14 +105,6 @@ function tools.clean_starcraft()
     -- Delete the old game state file
     --
 end
-
-function tools.kill_starcraft()
-    --
-    -- Killing StarCraft...
-    --
-end
-
--- O=
 
 -- beginning maps
 function tools.download_sscait_maps()

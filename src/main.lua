@@ -2,6 +2,7 @@
 --
 -- StarCraft:Brood War bots running inside a Singularity Linux® Container
 --
+local inspect = require("inspect")
 local lfs = require("lfs")
 local argparse = require("argparse")
 local socket = require("socket")
@@ -25,7 +26,7 @@ local parser = argparse() {
 local conf = options.get_options("/opt/bw/include/bw.yml")
 -- Spawning fighting bots at 
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
-parser:option("-m --map", "is not territory", "Maps/BroodWar/Fighting\\ Spirit\\ 1.3_iCCup.scx")
+parser:option("-m --map", "is not territory", "Maps/BroodWar/supportedMaps/\\(4\\)Fighting\\ Spirit.scx")
 -- CLI bw command
 parser:command_target("command")
 parser:command("play")
@@ -46,6 +47,7 @@ if args['command'] == 'play' then
             if lfs.chdir(session['bots']) then
                 print(stars[1] .. " against you!")
                 cpu_1 = bots.get_bot(stars[1], session['bots'])
+                inspect(cpu_1)
                 tools.update_registry()
                 tools.prepare_bwapi(tools.get_bwapi_ini(), cpu_1, args['map'], conf, session)
                 --tools.prepare_tm(cpu_1)

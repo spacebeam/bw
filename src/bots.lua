@@ -37,7 +37,12 @@ function bots.try_download(spec, home)
     tools.download_file(spec['bwapiDLL'], file)
     lfs.mkdir(home.."/read")
     lfs.mkdir(home.."/write")
-    bot["name"] = spec['name']
+    
+    --
+    bot["name"] = spec['name']:gsub("% ", "+")
+
+    --bot["name"] = spec['name']
+    
     bot["race"] = spec['race']
     if spec['botType'] ==  "AI_MODULE" then
         bot['type'] = "DLL"
@@ -54,6 +59,7 @@ function bots.try_download(spec, home)
 end
 
 function bots.get_bot(name, bots_directory)
+    -- here is were you fix getting bots like hao+pan with a space in its name.
     local available = bots.get_sscait_bots()
     local names = {}
     local spec = {}
@@ -65,6 +71,7 @@ function bots.get_bot(name, bots_directory)
             local home = bots_directory .. name
             if not lfs.chdir(home) then
                 for i, v in ipairs(available) do
+                    name = name:gsub("%+", " ")
                     if v['name'] == name then
                         spec = v
                         break
