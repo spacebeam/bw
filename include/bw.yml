@@ -1,11 +1,24 @@
 # The Computer League YAML file 
 starcraft: /opt/StarCraft
 bots:
+    - krasi0
+    - PurpleWave
+    - adias
+    - BunkerBoxer
+    - DaQin
+    - BetaStar
     - Ophelia
 maps:
     - Circuit Breaker
     - Fighting Spirit
     - Overwatch
+    - Power Bond
+    - Heartbreak Ridge
+    - Gold Rush
+    - Gladiator
+    - Blue Storm
+    - Neo Aztec
+    - Sparkle
 host: 127.0.0.1
 port: 58008
 speed: Normal

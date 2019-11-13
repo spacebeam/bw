@@ -1,6 +1,4 @@
---
--- Everyone's tool library
---
+-- very self-explanatory
 local http = require("socket.http")
 local https = require("ssl.https")
 local lfs = require("lfs")
