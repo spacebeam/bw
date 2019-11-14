@@ -17,6 +17,13 @@ function tools.prepare_ai(bot, session)
     --
     -- Preparing to fight
     --
+    
+    print(session["bwapi"]["data"])
+    print(session["bwapi"]["ai"])
+    
+    --lfs.mkdir(session["bwapi"]["data"])
+    --lfs.mkdir(session["bwapi"]["ai"])
+    
     local name = bot["name"]:gsub("% ", "+")
     os.execute("cp " .. "/opt/bw/include/bwapi-data/"
         .. bot["bwapi"] .. ".dll " 
