@@ -21,6 +21,7 @@ dependencies = {
   "argparse",
   "luasocket",
   "luafilesystem",
+  "inspect",
   "lzmq-ffi",
   "inifile",
   "turbo",
