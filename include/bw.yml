@@ -2,9 +2,7 @@
 starcraft: /opt/StarCraft
 bots:
     - krasi0
-    - PurpleWave
     - adias
-    - BunkerBoxer
     - DaQin
     - BetaStar
     - Ophelia
