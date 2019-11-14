@@ -57,7 +57,7 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     bwapi["auto_menu"]["game"] = bot["name"]
     bwapi["auto_menu"]["map"] = map
     -- save bwapi.ini 
-    ini.save(session["bwapi"]["data"] .. "/bwapi.ini", bwapi)
+    ini.save(session["bwapi"]["data"] .. "bwapi.ini", bwapi)
 end
 
 function tools.prepare_tm(bot)
