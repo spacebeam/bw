@@ -22,6 +22,7 @@ dependencies = {
   "luasocket",
   "luafilesystem",
   "inspect",
+  "lyaml",
   "lzmq-ffi",
   "inifile",
   "turbo",
