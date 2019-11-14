@@ -43,7 +43,6 @@ if args['command'] == 'play' then
         local stars = {}
         for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
         if #stars == 1 then
-            lfs.mkdir(session['bots'])
             print("CPU 1 vs Player 1")
             if lfs.chdir(session['bots']) then
                 print(stars[1] .. " against you!")

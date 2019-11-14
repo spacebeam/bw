@@ -1,3 +1,4 @@
+local lfs = require("lfs")
 local yaml = require("bw.lib.yaml")
 local tools = require("bw.tools")
 
@@ -23,6 +24,16 @@ function options.get_session_conf(dir)
     conf.bwapi.write = conf.bwapi.data .. 'write'
     conf.bwapi.ai = conf.bwapi.data .. 'AI'
     conf.bwapi.logs = conf.bwapi.data .. 'logs'
+    -- making some dirs
+    lfs.mkdir(conf['bots'])
+    lfs.mkdir(conf['games'])
+    lfs.mkdir(conf['errors'])
+    lfs.mkdir(conf['bwapi']['data'])
+    lfs.mkdir(conf['bwapi']['save'])
+    lfs.mkdir(conf['bwapi']['read'])
+    lfs.mkdir(conf['bwapi']['write'])
+    lfs.mkdir(conf['bwapi']['ai'])
+    lfs.mkdir(conf['bwapi']['logs'])
     return conf
 end
 
