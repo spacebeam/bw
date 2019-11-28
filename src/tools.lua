@@ -10,7 +10,9 @@ function tools.update_registry()
     --
     -- Playing with regedit!
     --
-    os.execute("bash /opt/bw/include/wine_registry.sh")
+    -- NOTE: calling sudo -u wine or runaswine? potato potato?
+    --
+    os.execute("sudo -u wine bash /opt/bw/include/wine_registry.sh")
 end
 
 function tools.prepare_ai(bot, session)
@@ -45,10 +47,14 @@ function tools.prepare_ai(bot, session)
     end
 end
 
-function tools.prepare_bwapi(bwapi, bot, map, conf, session)
+function tools.prepare_bwapi(bwapi, bot, map, host, join, conf, session)
     --
     -- Preparing bwapi.ini
     --
+    --
+    --
+    print(host)
+    print(join)
     bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll"
     bwapi["ai"]["tournament"] = "NULL" --conf["tournament"]["module"]
     bwapi["auto_menu"]["race"] = bot["race"]
@@ -77,12 +83,12 @@ function tools.run_proxy_script(bot, session)
     print('start proxy')
 end
 
-function tools.start_game(bot, map, session)
+function tools.start_game(bot, map, host, join, session)
     --
     -- Launch the game!
     --
     lfs.chdir('/opt/StarCraft')
-    local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe -l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name " 
+    local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe -l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --lan-sendto 127.0.0.1 --host --name " 
         .. bot['name'] .. " --game " .. bot['name'] .. " --race " .. string.sub(bot['race'], 1, 1) .. " --map " .. map
     
     local file = assert(io.popen(cmd, 'r'))
@@ -106,6 +112,10 @@ end
 -- beginning maps
 function tools.download_sscait_maps()
     -- 0
+end
+
+function tools.download_torchup_maps()
+    -- 0.1
 end
 
 function tools.download_btwa_caches()
