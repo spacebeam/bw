@@ -89,7 +89,7 @@ function tools.start_game(bot, map, host, join, session)
     --
     lfs.chdir('/opt/StarCraft')
     local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe -l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --lan-sendto 127.0.0.1 --host --name " 
-        .. bot['name'] .. " --game " .. bot['name'] .. " --race " .. string.sub(bot['race'], 1, 1) .. " --map " .. map
+        .. bot['name'] .. " --game " .. bot['name'] .. " --race " .. string.sub(bot['race'], 1, 1) .. " --map " .. map .. " --headful"
     
     local file = assert(io.popen(cmd, 'r'))
     local output = file:read('*all')
