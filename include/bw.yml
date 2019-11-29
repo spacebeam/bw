@@ -1,10 +1,7 @@
 # The Computer League YAML file 
 starcraft: /opt/StarCraft
 bots:
-    - krasi0
-    - adias
-    - DaQin
-    - BetaStar
+    - DaQueen
     - Ophelia
 maps:
     - Circuit Breaker
