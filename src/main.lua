@@ -51,16 +51,23 @@ if args['command'] == 'play' then
                 cpu_1 = bots.get_bot(stars[1], session['bots'])
                 inspect(cpu_1)
                 tools.update_registry()
-                tools.prepare_bwapi(tools.get_bwapi_ini(), 
-                                    cpu_1, 
-                                    args['map'], 
-                                    args['host'], 
-                                    args['join'], 
-                                    conf, 
-                                    session)
+                tools.prepare_bwapi(
+                    tools.get_bwapi_ini(), 
+                    cpu_1, 
+                    args['map'], 
+                    args['host'], 
+                    args['join'], 
+                    conf, 
+                    session
+                )
                 --tools.prepare_tm(cpu_1)
                 tools.prepare_ai(cpu_1, session)
-                tools.start_game(cpu_1, args['map'], args['host'], args['join'], session)
+                tools.start_game(
+                    cpu_1, 
+                    args['map'], 
+                    args['host'], 
+                    args['join'], session
+                )
             end
         elseif #stars == 2 then
             print("CPU 1 vs CPU 2")
