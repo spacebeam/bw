@@ -112,10 +112,13 @@ function tools.download_maps()
     -- 0.1
 end
 
+function tools.download_bwta_cache()
+    -- 0.2
+end
+
 function tools.check_maps_exist()
     -- 2
 end
--- end of maps
 
 function tools.check_status_code(host, port)
     local url = "http://" .. host .. ":" .. port .. "/status/"
