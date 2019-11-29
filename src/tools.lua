@@ -53,7 +53,7 @@ function tools.prepare_bwapi(bwapi, bot, map, host, join, conf, session)
     --
     print(host)
     print(join)
-    bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll"
+    bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, NULL"
     bwapi["ai"]["tournament"] = "NULL" --conf["tournament"]["module"]
     bwapi["auto_menu"]["race"] = bot["race"]
     bwapi["auto_menu"]["wait_for_min_players"] = 2
@@ -86,6 +86,8 @@ function tools.start_game(bot, map, host, join, session)
     -- Launch the game!
     --
     lfs.chdir('/opt/StarCraft')
+    -- be cause we have as well "our own" Locutus fork!
+    if bot['name'] == "DaQin" then bot['name'] = "DaQueen" end
     local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe -l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name " 
         .. bot['name'] .. " --game " .. bot['name'] .. " --race " .. string.sub(bot['race'], 1, 1) .. " --map " 
         .. map .. " & wine Chaoslauncher/Chaoslauncher.exe"
