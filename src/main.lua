@@ -48,6 +48,7 @@ if args['command'] == 'play' then
             print("CPU 1 vs Player 1")
             if lfs.chdir(session['bots']) then
                 print(stars[1] .. " against you!")
+                if stars[1] == "DaQueen" then stars[1] = "DaQin" end
                 cpu_1 = bots.get_bot(stars[1], session['bots'])
                 inspect(cpu_1)
                 tools.update_registry()
