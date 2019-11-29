@@ -1,4 +1,7 @@
-# The Computer League YAML file 
+#
+# Torch Up: Brood War AI Tournament YAML file
+# Join the annual competition at https://torchup.org 
+#
 starcraft: /opt/StarCraft
 bots:
     - DaQueen
