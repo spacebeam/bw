@@ -51,8 +51,6 @@ function tools.prepare_bwapi(bwapi, bot, map, host, join, conf, session)
     --
     -- Preparing bwapi.ini
     --
-    --
-    --
     print(host)
     print(join)
     bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll"
@@ -110,17 +108,8 @@ function tools.clean_starcraft()
     --
 end
 
--- beginning maps
-function tools.download_sscait_maps()
-    -- 0
-end
-
-function tools.download_torchup_maps()
+function tools.download_maps()
     -- 0.1
-end
-
-function tools.download_btwa_caches()
-    -- 1
 end
 
 function tools.check_maps_exist()
