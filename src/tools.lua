@@ -47,12 +47,10 @@ function tools.prepare_ai(bot, session)
     end
 end
 
-function tools.prepare_bwapi(bwapi, bot, map, host, join, conf, session)
+function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     --
     -- Preparing bwapi.ini
     --
-    print(host)
-    print(join)
     bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, NULL"
     bwapi["ai"]["tournament"] = "NULL" --conf["tournament"]["module"]
     bwapi["auto_menu"]["race"] = bot["race"]
@@ -81,7 +79,7 @@ function tools.run_proxy_script(bot, session)
     print('start proxy')
 end
 
-function tools.start_game(bot, map, host, join, session)
+function tools.start_game(bot, map, session)
     --
     -- Launch the game!
     --

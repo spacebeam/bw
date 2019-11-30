@@ -27,8 +27,6 @@ local conf = options.get_options("/opt/bw/include/bw.yml")
 -- Spawning fighting bots at 
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
 parser:option("-m --map", "is not territory", "maps/TorchUp/\\(3\\)Power\\ Bond.scx")
-parser:option("-t --host", "host the game on ip address", "")
-parser:option("-j --join", "join the game on ip address", "")
 -- CLI bw command
 parser:command_target("command")
 parser:command("play")
@@ -56,8 +54,6 @@ if args['command'] == 'play' then
                     tools.get_bwapi_ini(), 
                     cpu_1, 
                     args['map'], 
-                    args['host'], 
-                    args['join'], 
                     conf, 
                     session
                 )
@@ -66,8 +62,7 @@ if args['command'] == 'play' then
                 tools.start_game(
                     cpu_1, 
                     args['map'], 
-                    args['host'], 
-                    args['join'], session
+                    session
                 )
             end
         elseif #stars == 2 then
