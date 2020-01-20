@@ -7,6 +7,7 @@ local lfs = require("lfs")
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
+-- required bw modules
 local bots = require("bw.bots")
 local messages = require("bw.messages")
 local options = require("bw.options")
@@ -16,17 +17,18 @@ local version = require("bw.version")
 uuid.randomseed(socket.gettime()*10000)
 -- Session UUID
 local session_uuid = uuid()
+print("bw session " .. session_uuid)
 -- CLI argument parser
 local parser = argparse() {
    name = "bw",
    description = "bw command line tool.",
-   epilog = "It can download and launch Win32 C++ and Java bots " .. 
+   epilog = "It can download and launch Win32 C++ and Java bots " ..
    "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0."
 }
 local conf = options.get_options("/opt/bw/include/bw.yml")
--- Spawning fighting bots at 
+-- Spawning fighting bots at
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
-parser:option("-m --map", "is not territory", "maps/TorchUp/\\(3\\)Power\\ Bond.scx")
+parser:option("-m --map", "is not territory", "maps/TorchUp/\\(4\\)Fighting\\ Spirit.scx")
 -- CLI bw command
 parser:command_target("command")
 parser:command("play")
@@ -34,6 +36,8 @@ parser:command("status")
 parser:command("version")
 -- Parse your arguments
 local args = parser:parse()
+-- internal session variables
+local cpu_1, cpu_2  = nil, nil
 -- StarCraft 1.16.1 directory
 args['directory'] = "/opt/StarCraft"
 local session = options.get_session_conf(args['directory'])
@@ -46,27 +50,28 @@ if args['command'] == 'play' then
             print("CPU 1 vs Player 1")
             if lfs.chdir(session['bots']) then
                 print(stars[1] .. " against you!")
-                if stars[1] == "DaQueen" then stars[1] = "DaQin" end
                 cpu_1 = bots.get_bot(stars[1], session['bots'])
                 inspect(cpu_1)
                 tools.update_registry()
                 tools.prepare_bwapi(
-                    tools.get_bwapi_ini(), 
-                    cpu_1, 
-                    args['map'], 
-                    conf, 
+                    tools.get_bwapi_ini(),
+                    cpu_1,
+                    args['map'],
+                    conf,
                     session
                 )
                 --tools.prepare_tm(cpu_1)
                 tools.prepare_ai(cpu_1, session)
                 tools.start_game(
-                    cpu_1, 
-                    args['map'], 
+                    cpu_1,
+                    args['map'],
                     session
                 )
             end
         elseif #stars == 2 then
-            print("CPU 1 vs CPU 2")
+            print("CPU 1 vs CPU 2 ")
+            print(inspect(cpu_1))
+            print(inspect(cpu_2))
         else
             print(#stars)
         end

@@ -18,7 +18,7 @@ function options.get_session_conf(dir)
     conf.games = dir .. '/games/'
     conf.maps = dir .. '/maps/'
     conf.errors = dir .. '/Errors/'
-    conf.bwapi.data = dir .. '/bwapi-data/' 
+    conf.bwapi.data = dir .. '/bwapi-data/'
     conf.bwapi.save = conf.bwapi.data .. 'save'
     conf.bwapi.read = conf.bwapi.data .. 'read'
     conf.bwapi.write = conf.bwapi.data .. 'write'

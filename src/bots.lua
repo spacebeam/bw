@@ -1,3 +1,5 @@
+-- Singularity Island Challenge
+
 local https = require("ssl.https")
 local tools = require("bw.tools")
 local lyaml = require("lyaml")
@@ -24,6 +26,7 @@ function bots.get_sscait_bots()
         headers = {["Content-Type"] = "application/json"},
         sink = ltn12.sink.table(chunks)
     }
+    print(r, c, h, s)
     local response = table.concat(chunks)
     return json.decode(response)
 end
@@ -47,7 +50,7 @@ function bots.try_download(spec, home)
         bot["type"] = "EXE"
     end
     bot["bwapi"] = bots.supported_bwapi(tools.md5file(file))
-    local file = io.open(home .. "/bot.yml",'w')
+    file = io.open(home .. "/bot.yml",'w')
     file:write(lyaml.dump({bot}))
     file:close()
     return bot
@@ -62,12 +65,13 @@ function bots.get_bot(name, bots_directory)
     table.insert(names, name)
     for _, v in pairs(names) do
         if v == name then
+            -- this check of the bot in the bots directory first before trying to download it from sscait
             local home = bots_directory .. name
             if not lfs.chdir(home) then
-                for i, v in ipairs(available) do
+                for i, t in ipairs(available) do
                     name = name:gsub("%+", " ")
-                    if v['name'] == name then
-                        spec = v
+                    if t['name'] == name then
+                        spec = t
                         break
                     end
                 end
@@ -84,7 +88,7 @@ function bots.get_bot(name, bots_directory)
             break
         end
     end
-    return bot 
+    return bot
 end
 
 return bots
