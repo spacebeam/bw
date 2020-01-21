@@ -60,7 +60,7 @@ if args['command'] == 'play' then
                     conf,
                     session
                 )
-                --tools.prepare_tm(cpu_1)
+                tools.prepare_tm(cpu_1, session)
                 tools.prepare_ai(cpu_1, session)
                 tools.start_game(
                     cpu_1,

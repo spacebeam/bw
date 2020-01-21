@@ -43,13 +43,11 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     ini.save(session["bwapi"]["data"] .. "bwapi.ini", bwapi)
 end
 
-function tools.prepare_tm(bot)
+function tools.prepare_tm(bot, session)
     --
     -- Preparing tm.dll
     --
-    --print(bot)
-    print('binary stream')
-    -- cp ${TM_DIR}/${BOT_BWAPI}.dll $SC_DIR/tm.dll
+    os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"])
 end
 
 function tools.run_proxy_script(bot, session)
@@ -167,11 +165,11 @@ function tools.get_bwapi_ini()
     -- FIRST (default), use the first character in the list
     -- WAIT, stop at this screen
     -- else the character with the given value is used/created
-    local character_name = "FIRST"
+    --local character_name = "FIRST"
     -- BWAPI version 4.2.0 and higher ONLY
     -- Text that appears in the drop-down list below the Game Type.
-    local game_type_extra = ""
-    print(character_name, game_type_extra)
+    --local game_type_extra = ""
+    --print(character_name, game_type_extra)
     return bwapi
 end
 
