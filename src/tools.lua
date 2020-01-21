@@ -33,7 +33,7 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     -- Preparing bwapi.ini
     --
     bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, NULL"
-    bwapi["ai"]["tournament"] = "NULL" --conf["tournament"]["module"]
+    bwapi["ai"]["tournament"] = conf["tournament"]["module"]
     bwapi["auto_menu"]["race"] = bot["race"]
     bwapi["auto_menu"]["wait_for_min_players"] = 2
     bwapi["starcraft"]["speed_override"] = conf["tournament"]["local_speed"]
@@ -47,7 +47,7 @@ function tools.prepare_tm(bot, session)
     --
     -- Preparing tm.dll
     --
-    os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"])
+    os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"] .. "/tm.dll")
 end
 
 function tools.run_proxy_script(bot, session)
