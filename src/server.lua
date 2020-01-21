@@ -3,9 +3,6 @@
 -- The Computer League server.lua file
 --
 
--- TODO: check if this breaks
-local class = nil
-
 local argparse = require("argparse")
 local turbo = require("turbo")
 local socket = require("socket")
