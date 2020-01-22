@@ -1,5 +1,5 @@
 -- very self-explanatory
-
+local fun = require("moses")
 local inspect = require("inspect")
 local http = require("socket.http")
 local https = require("ssl.https")
@@ -24,6 +24,9 @@ function tools.prepare_ai(bot, session)
     local name = bot["name"]:gsub("% ", "+")
     os.execute("cp " .. "/opt/bw/include/bwapi-data/"
         .. bot["bwapi"] .. ".dll "
+        .. session["bwapi"]["data"] .. "bwapi/")
+    os.execute("cp " .. "/opt/bw/include/bwapi-data/"
+        .. bot["bwapi"] .. ".dll "
         .. session["bwapi"]["data"] .. "BWAPI.dll")
     os.execute("cp -r " .. session["bots"] .. name .. "/AI/* " .. session["bwapi"]["ai"])
 end
@@ -32,13 +35,33 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     --
     -- Preparing bwapi.ini
     --
-    bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, NULL"
-    bwapi["ai"]["tournament"] = conf["tournament"]["module"]
-    bwapi["auto_menu"]["race"] = bot["race"]
-    bwapi["auto_menu"]["wait_for_min_players"] = 2
-    bwapi["starcraft"]["speed_override"] = conf["tournament"]["local_speed"]
-    bwapi["auto_menu"]["game"] = bot["name"]
-    bwapi["auto_menu"]["map"] = map
+    if fun.size(bot) > 2 then
+        bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, NULL"
+        bwapi["ai"]["tournament"] = conf["tournament"]["module"]
+        bwapi["auto_menu"]["race"] = bot["race"]
+        bwapi["auto_menu"]["wait_for_min_players"] = 2
+        bwapi["starcraft"]["speed_override"] = conf["tournament"]["local_speed"]
+        bwapi["auto_menu"]["game"] = bot["name"]
+        bwapi["auto_menu"]["map"] = map
+    elseif fun.size(bot) == 2 then
+        -- is very diffrent to handle things for bot vs bot!
+        bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/"
+            .. bot[1]['name']
+            .. ".dll, "
+            .. "/opt/StarCraft/bwapi-data/AI/"
+            .. bot[2]['name']
+            .. ".dll"
+        bwapi["ai"]["tournament"] = "bwapi-data/tm/"
+            .. bot[1]['bwapi']
+            .. ".dll"
+        bwapi["auto_menu"]["race"] = bot[1]["race"]
+        bwapi["auto_menu"]["wait_for_min_players"] = 2
+        bwapi["starcraft"]["speed_override"] = conf["tournament"]["local_speed"]
+        bwapi["auto_menu"]["game"] = bot[1]["name"]
+        bwapi["auto_menu"]["map"] = map
+    else
+        print('crash tools.prepare_bwapi()')
+    end
     -- save bwapi.ini
     ini.save(session["bwapi"]["data"] .. "bwapi.ini", bwapi)
 end
@@ -48,6 +71,7 @@ function tools.prepare_tm(bot, session)
     -- Preparing tm.dll
     --
     os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"] .. "/tm.dll")
+    os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"] .. "/tm/")
 end
 
 function tools.run_proxy_script(bot, session)
@@ -63,15 +87,33 @@ function tools.start_game(bot, map, session)
     -- Launch the game!
     --
     lfs.chdir('/opt/StarCraft')
-    local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
-        .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
-        .. bot['name'] .. " --game " .. bot['name'] .. " --race "
-        .. string.sub(bot['race'], 1, 1) .. " --map "
-        .. map .. " & wine Chaoslauncher/Chaoslauncher.exe"
-    local file = assert(io.popen(cmd, 'r'))
-    local output = file:read('*all')
-    file:close()
-    print(output)
+    if fun.size(bot) > 2 then
+        local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
+            .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
+            .. bot['name'] .. " --game " .. bot['name'] .. " --race "
+            .. string.sub(bot['race'], 1, 1) .. " --map "
+            .. map .. " & wine Chaoslauncher/Chaoslauncher.exe"
+        local file = assert(io.popen(cmd, 'r'))
+        local output = file:read('*all')
+        file:close()
+        print(output)
+    elseif fun.size(bot) == 2 then
+        --
+        local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
+            .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
+            .. bot[1]['name'] .. " --game " .. bot[1]['name'] .. " --race "
+            .. string.sub(bot[1]['race'], 1, 1) .. " --map "
+            .. map
+        local file = assert(io.popen(cmd, 'r'))
+        local output = file:read('*all')
+        file:close()
+        print(output)
+    else
+        --
+        print("crash tools.start_game()")
+    end
+
+
 end
 
 function tools.detect_game_finished()

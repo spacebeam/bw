@@ -51,7 +51,6 @@ if args['command'] == 'play' then
             if lfs.chdir(session['bots']) then
                 print(stars[1] .. " against you!")
                 cpu_1 = bots.get_bot(stars[1], session['bots'])
-                inspect(cpu_1)
                 tools.update_registry()
                 tools.prepare_bwapi(
                     tools.get_bwapi_ini(),
@@ -70,8 +69,29 @@ if args['command'] == 'play' then
             end
         elseif #stars == 2 then
             print("CPU 1 vs CPU 2 ")
-            print(inspect(cpu_1))
+            tools.update_registry()
+            cpu_2 = bots.get_bot(stars[2], session['bots'])
             print(inspect(cpu_2))
+            tools.prepare_ai(cpu_2, session)
+            tools.prepare_tm(cpu_2, session)
+            cpu_1 = bots.get_bot(stars[1], session['bots'])
+            print(inspect(cpu_1))
+            tools.prepare_ai(cpu_1, session)
+            tools.prepare_tm(cpu_1, session)
+            -- is a little different to prepare a bwapi.ini for bot vs bot
+            tools.prepare_bwapi(
+                tools.get_bwapi_ini(),
+                -- to do this thing and have the same list of arguments, pass a list or a bot.
+                {cpu_1, cpu_2},
+                args['map'],
+                conf,
+                session
+            )
+            tools.start_game(
+                {cpu_1, cpu_2},
+                args['map'],
+                session
+            )
         else
             print(#stars)
         end
