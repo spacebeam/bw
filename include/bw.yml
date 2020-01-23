@@ -4,18 +4,28 @@
 #
 starcraft: /opt/StarCraft
 bots:
-    - DaQueen
-    - Ophelia
+    - Locutus
+    - PurpleWave
+    - Halo
+    - BunkerBoxer
+    - Letabot
+    - Ecgberht
+    - Microwave
+    - CUNYBot
+    - Crona
+    - StyxZ
+    - ZZZKBot
+    - TCPZerg 
 maps:
     - Circuit Breaker
-    - Fighting Spirit
-    - Overwatch
-    - Power Bond
-    - Heartbreak Ridge
-    - Gold Rush
-    - Gladiator
+    - Aztec
     - Blue Storm
-    - Neo Aztec
+    - Gladiator
+    - Gold Rush
+    - Heartbreak Ridge
+    - Fighting Spirit
+    - Power Bond
+    - Overwatch
     - Sparkle
 host: 127.0.0.1
 port: 58008
