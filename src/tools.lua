@@ -96,7 +96,6 @@ function tools.start_game(bot, map, session)
         local output = file:read('*all')
         file:close()
         print(output)
-        print("meets Jamaika")
     elseif fun.size(bot) == 2 then
         --
         local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
