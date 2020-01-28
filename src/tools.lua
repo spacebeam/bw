@@ -9,7 +9,7 @@ local ini = require("inifile")
 local tools = {}
 
 function tools.update_registry()
-    os.execute("bash /opt/bw/include/wine_registry.sh")
+    os.execute("sudo -u wine bash /opt/bw/include/wine_registry.sh")
 end
 
 function tools.prepare_ai(bot, session)
@@ -66,28 +66,15 @@ function tools.prepare_tm(bot, session)
     -- Preparing tm.dll
     --
     os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"] .. "/tm.dll")
+    os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"] .. "/tm/")
 end
 
-function tools.run_client_bot(bot, session)
+function tools.run_proxy_script(bot, session)
     --
     -- Bot might use an server/client infrastructure, so connect it after the game has started
     --
-    if bot['type'] == 'Java' then
-        lfs.chdir('/opt/StarCraft')
-        if bot['name'] == 'PurpleWave' then
-            os.execute('wine java -jar '.. session['bwapi']['ai'] .. '/PurpleWave.jar&')
-        elseif bot['name'] == 'Ecgberht' then
-            os.execute('wine java -jar '.. session['bwapi']['ai'] .. '/Ecgberht.jar&')
-        elseif bot['name'] == 'StyxZ' then
-            os.execute('wine java -jar '.. session['bwapi']['ai'] .. '/StyxZ.jar&')
-        else
-            tools.pass()
-        end
-    elseif bot['type'] == 'EXE' then
-        print('EXEEE')
-    else
-        tools.pass()
-    end
+    print(bot)
+    print('start proxy')
 end
 
 function tools.start_game(bot, map, session)
@@ -95,27 +82,11 @@ function tools.start_game(bot, map, session)
     -- Launch the game!
     --
     lfs.chdir('/opt/StarCraft')
-    local cmd = nil
     if fun.size(bot) > 2 then
-        if bot['type'] == 'Java' then
-            lfs.chdir('/opt/StarCraft')
-            cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
-                .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name "
-                .. bot['name'] .. " --game " .. bot['name'] .. " --race "
-                .. string.sub(bot['race'], 1, 1) .. " --map " .. map
-                -- .. '& wine java -jar ' .. session['bwapi']['ai'] .. '/' .. bot['name'] .. '.jar'
-
-        elseif bot['type'] == 'EXE' then
-            -- pass
-        elseif bot['type'] == 'Linux' then
-            -- pass
-        else
-            cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
-                .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name "
-                .. bot['name'] .. " --game " .. bot['name'] .. " --race "
-                .. string.sub(bot['race'], 1, 1) .. " --map " .. map
-        end
-        print(cmd)
+        local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
+            .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name "
+            .. bot['name'] .. " --game " .. bot['name'] .. " --race "
+            .. string.sub(bot['race'], 1, 1) .. " --map " .. map
         local file = assert(io.popen(cmd, 'r'))
         local output = file:read('*all')
         file:close()
