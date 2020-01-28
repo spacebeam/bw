@@ -9,11 +9,6 @@ local ini = require("inifile")
 local tools = {}
 
 function tools.update_registry()
-    --
-    -- Playing with regedit!
-    --
-    -- NOTE: calling sudo -u wine or runaswine? potato potato?
-    --
     os.execute("sudo -u wine bash /opt/bw/include/wine_registry.sh")
 end
 
