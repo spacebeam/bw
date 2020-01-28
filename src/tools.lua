@@ -36,11 +36,11 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     -- Preparing bwapi.ini
     --
     if fun.size(bot) > 2 then
-        bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, NULL"
-        bwapi["ai"]["tournament"] = conf["tournament"]["module"]
+        bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll"
+        bwapi["ai"]["tournament"] = "bwapi-data/tm.dll"
         bwapi["auto_menu"]["race"] = bot["race"]
         bwapi["auto_menu"]["wait_for_min_players"] = 2
-        bwapi["starcraft"]["speed_override"] = conf["tournament"]["local_speed"]
+        bwapi["starcraft"]["speed_override"] = 42
         bwapi["auto_menu"]["game"] = bot["name"]
         bwapi["auto_menu"]["map"] = map
     elseif fun.size(bot) == 2 then
@@ -56,7 +56,7 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
             .. ".dll"
         bwapi["auto_menu"]["race"] = bot[1]["race"]
         bwapi["auto_menu"]["wait_for_min_players"] = 2
-        bwapi["starcraft"]["speed_override"] = conf["tournament"]["local_speed"]
+        bwapi["starcraft"]["speed_override"] = 0
         bwapi["auto_menu"]["game"] = bot[1]["name"]
         bwapi["auto_menu"]["map"] = map
     else
@@ -89,14 +89,14 @@ function tools.start_game(bot, map, session)
     lfs.chdir('/opt/StarCraft')
     if fun.size(bot) > 2 then
         local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
-            .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
+            .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name "
             .. bot['name'] .. " --game " .. bot['name'] .. " --race "
-            .. string.sub(bot['race'], 1, 1) .. " --map "
-            .. map .. " & wine Chaoslauncher/Chaoslauncher.exe"
+            .. string.sub(bot['race'], 1, 1) .. " --map " .. map
         local file = assert(io.popen(cmd, 'r'))
         local output = file:read('*all')
         file:close()
         print(output)
+        print("meets Jamaika")
     elseif fun.size(bot) == 2 then
         --
         local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
