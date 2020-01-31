@@ -103,7 +103,7 @@ function tools.start_game(bot, map, session)
                 .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name "
                 .. bot['name'] .. " --game " .. bot['name'] .. " --race "
                 .. string.sub(bot['race'], 1, 1) .. " --map " .. map
-                .. '& wine java -jar ' .. session['bwapi']['ai'] .. '/' .. bot['name'] .. '.jar'
+                -- .. '& wine java -jar ' .. session['bwapi']['ai'] .. '/' .. bot['name'] .. '.jar'
 
         elseif bot['type'] == 'EXE' then
             -- pass
