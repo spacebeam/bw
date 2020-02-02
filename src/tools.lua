@@ -97,8 +97,6 @@ function tools.start_game(bot, map, session)
         --
         print("crash tools.start_game()")
     end
-
-
 end
 
 function tools.detect_game_finished()
