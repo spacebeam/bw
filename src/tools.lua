@@ -9,7 +9,7 @@ local ini = require("inifile")
 local tools = {}
 
 function tools.update_registry()
-    os.execute("sudo -u wine bash /opt/bw/include/wine_registry.sh")
+    os.execute("bash /opt/bw/include/wine_registry.sh")
 end
 
 function tools.prepare_ai(bot, session)
@@ -66,15 +66,6 @@ function tools.prepare_tm(bot, session)
     -- Preparing tm.dll
     --
     os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"] .. "/tm.dll")
-    os.execute("cp /opt/bw/include/tm/" .. bot["bwapi"] .. ".dll " .. session["bwapi"]["data"] .. "/tm/")
-end
-
-function tools.run_proxy_script(bot, session)
-    --
-    -- Bot might use an server/client infrastructure, so connect it after the game has started
-    --
-    print(bot)
-    print('start proxy')
 end
 
 function tools.start_game(bot, map, session)
@@ -124,10 +115,6 @@ end
 
 function tools.download_maps()
     -- 0.1
-end
-
-function tools.download_bwta_cache()
-    -- 0.2
 end
 
 function tools.check_maps_exist()
