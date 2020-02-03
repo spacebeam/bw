@@ -78,7 +78,6 @@ function tools.start_game(bot, map, session)
     lfs.chdir('/opt/StarCraft')
     if fun.size(bot) > 2 then
 
---- let it crash!
         if bot['type'] == 'Java' then
             tools.pass()
         elseif bot['type'] == 'EXE' then
@@ -97,16 +96,7 @@ function tools.start_game(bot, map, session)
         file:close()
         print(output)
     elseif fun.size(bot) == 2 then
-        --
-        local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
-            .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
-            .. bot[1]['name'] .. " --game " .. bot[1]['name'] .. " --race "
-            .. string.sub(bot[1]['race'], 1, 1) .. " --map "
-            .. map
-        local file = assert(io.popen(cmd, 'r'))
-        local output = file:read('*all')
-        file:close()
-        print(output)
+        -- zmq and I'm ready to fuck shit up
     else
         --
         print("crash tools.start_game()")
