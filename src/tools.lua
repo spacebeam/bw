@@ -72,6 +72,9 @@ function tools.start_game(bot, map, session)
     --
     -- Launch the game!
     --
+    -- currenty i need to both host and join games, can I add those as arguments or include them in the session that I already have?
+    --
+    --
     lfs.chdir('/opt/StarCraft')
     if fun.size(bot) > 2 then
         local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
