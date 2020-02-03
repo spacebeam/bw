@@ -77,10 +77,21 @@ function tools.start_game(bot, map, session)
     --
     lfs.chdir('/opt/StarCraft')
     if fun.size(bot) > 2 then
-        local cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
-            .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name "
-            .. bot['name'] .. " --game " .. bot['name'] .. " --race "
-            .. string.sub(bot['race'], 1, 1) .. " --map " .. map
+
+--- let it crash!
+        if bot['type'] == 'Java' then
+            tools.pass()
+        elseif bot['type'] == 'EXE' then
+            tools.pass()
+        elseif bot['type'] == 'Linux' then
+            tools.pass()
+        else
+            cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
+                .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name "
+                .. bot['name'] .. " --game " .. bot['name'] .. " --race "
+                .. string.sub(bot['race'], 1, 1) .. " --map " .. map
+        end
+        print(cmd)
         local file = assert(io.popen(cmd, 'r'))
         local output = file:read('*all')
         file:close()
