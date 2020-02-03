@@ -1,6 +1,6 @@
 #!/usr/bin/env luajit
 --
--- The Computer League server.lua file
+-- Torch Up: Brood War AI Tournament server.lua file
 --
 
 local argparse = require("argparse")
