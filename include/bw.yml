@@ -7,7 +7,6 @@ bots:
     - Locutus
     - PurpleWave
     - Halo
-    - BunkerBoxer
     - Letabot
     - Ecgberht
     - Microwave
@@ -30,19 +29,3 @@ maps:
 host: 127.0.0.1
 port: 58008
 speed: Normal
-# tm.dll configuration
-tournament:
-    module: bwapi-data/tm.dll
-    local_speed: 42 
-    frame_skip: 256
-    frame_limit: 85714
-    timeouts:
-        -
-            time: 55
-            frame: 320
-        - 
-            time: 1000
-            frame: 10
-        -
-            time: 10000
-            frame: 1
