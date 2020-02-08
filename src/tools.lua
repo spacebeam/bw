@@ -31,8 +31,8 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     -- Preparing bwapi.ini
     --
     if fun.size(bot) > 2 then
-        bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll"
-        bwapi["ai"]["tournament"] = "bwapi-data/tm.dll"
+        bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, NULL"
+        --bwapi["ai"]["tournament"] = "bwapi-data/tm.dll"
         bwapi["auto_menu"]["race"] = bot["race"]
         bwapi["auto_menu"]["wait_for_min_players"] = 2
         bwapi["starcraft"]["speed_override"] = 42
@@ -86,9 +86,10 @@ function tools.start_game(bot, map, session)
             tools.pass()
         else
             cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
-                .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --lan --host --name "
+                .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
                 .. bot['name'] .. " --game " .. bot['name'] .. " --race "
                 .. string.sub(bot['race'], 1, 1) .. " --map " .. map
+                .. "& wine Chaoslauncher/Chaoslauncher.exe"
         end
         print(cmd)
         local file = assert(io.popen(cmd, 'r'))

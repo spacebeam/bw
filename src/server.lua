@@ -6,6 +6,8 @@
 local argparse = require("argparse")
 local turbo = require("turbo")
 local socket = require("socket")
+-- let it crash!
+local zmq = require("lzmq")
 local uuid = require("uuid")
 local options = require("bw.options")
 
