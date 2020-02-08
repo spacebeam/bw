@@ -31,7 +31,7 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     -- Preparing bwapi.ini
     --
     if fun.size(bot) > 2 then
-        bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, NULL"
+        bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, HUMAN"
         --bwapi["ai"]["tournament"] = "bwapi-data/tm.dll"
         bwapi["auto_menu"]["race"] = bot["race"]
         bwapi["auto_menu"]["wait_for_min_players"] = 2
