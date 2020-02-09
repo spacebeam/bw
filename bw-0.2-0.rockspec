@@ -1,11 +1,11 @@
 -- And Now For Something Completely Different
 
 package = "bw"
-version = "0.1-0"
+version = "0.2-0"
 
 source = {
   url = "git://github.com/spacebeam/bw",
-  tag = "0.1.0",
+  tag = "0.2.0",
 }
 
 description = {
