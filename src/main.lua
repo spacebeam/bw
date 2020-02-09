@@ -44,8 +44,7 @@ local session = options.get_session_conf(args['directory'])
 if args['command'] == 'play' then
     local status = tools.check_status_code(conf["host"], conf["port"])
     if status == 200 then
-        local stars = {}
-        for w in args['bots']:gmatch("%S+") do table.insert(stars, w) end
+        local stars = tools.split(args['bots'], ':')
         if #stars == 1 then
             print("CPU 1 vs Player 1")
             if lfs.chdir(session['bots']) then

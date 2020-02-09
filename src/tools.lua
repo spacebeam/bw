@@ -165,6 +165,14 @@ function tools.read_file(file)
     return content
 end
 
+function tools.split(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+
 function tools.all_trim(s)
     return s:match("^%s*(.-)%s*$")
 end
