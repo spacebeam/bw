@@ -38,8 +38,7 @@ build = {
     ['bw.messages'] = "src/messages.lua",
     ['bw.options'] = "src/options.lua",
     ['bw.tools'] = "src/tools.lua",
-    ['bw.version'] = "src/version.lua",
-    ['bw.zstreams'] = "src/zstreams.lua"
+    ['bw.version'] = "src/version.lua"
   },
   install = {
     bin = {
