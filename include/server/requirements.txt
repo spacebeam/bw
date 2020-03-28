@@ -1,0 +1,11 @@
+tornado
+cython
+futures
+riak
+schematics
+scipy
+pyzmq
+Jinja2
+arrow
+pycurl
+ujson
