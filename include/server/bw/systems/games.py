@@ -18,7 +18,7 @@ from schematics.types import compound
 from bw.schemas import games
 from bw.schemas import BaseResult
 
-from mango.tools import clean_structure, clean_results
+from bw.tools import clean_structure, clean_results
 
 from tornado import httpclient as _http_client
 

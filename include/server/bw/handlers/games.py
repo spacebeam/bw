@@ -23,7 +23,7 @@ from bw.handlers import BaseHandler
 from collections import OrderedDict
 
 
-class Handler(games.Game, BaseHandler):
+class Handler(games.Games, BaseHandler):
     '''
         HTTP request handlers
     '''
