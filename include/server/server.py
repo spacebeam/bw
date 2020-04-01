@@ -23,13 +23,6 @@ from tornado import gen, web
 from bw.handlers import BaseHandler as StatusHandler
 from bw.handlers import games
 from bw.tools import options
-from bw.tools import zstreams 
-
-
-@gen.coroutine
-def run(port):
-    context = Context()
-    yield zeromq.run_collector(context, port)
 
 
 def main():
@@ -59,15 +52,9 @@ def main():
         domain=opts.domain,
         page_size=opts.page_size
     )
-    # Listen daemon on custom port
-    collect_port = int(opts.port) + 1
-    # ?
-    application.listen(collect_port)
-    logging.info('Listen on http://{0}:{1}'.format(opts.host, collect_port))
-    # Setting up the ZeroMQ integration
-    IOLoop.current().spawn_callback(
-        partial(run, opts.streams_port, )
-    )
+    # Listen daemon on port
+    application.listen(opts.port)
+    logging.info('Listen on http://{0}:{1}'.format(opts.host, opts.port))
     # Start the eventloop
     ioloop.IOLoop.instance().start()
 
