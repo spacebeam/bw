@@ -41,12 +41,6 @@ class Handler(games.Games, BaseHandler):
         '''
         # request query arguments
         query_args = self.request.arguments
-        # get the current frontend username from token
-        username = self.get_username_token()
-        # if the user don't provide an account we use the username as last resort
-        account = (query_args.get('account', [username])[0] if not account else account)
-        # query string checked from string to boolean
-        checked = str2bool(str(query_args.get('checked', [False])[0]))
         # getting pagination ready
         page_num = int(query_args.get('page', [page_num])[0])
         # rage against the finite state machine
@@ -84,12 +78,6 @@ class Handler(games.Games, BaseHandler):
         '''
         # request query arguments
         query_args = self.request.arguments
-        # get the current frontend username from token
-        username = self.get_username_token()
-        # if the user don't provide an account we use the username as last resort
-        account = (query_args.get('account', [username])[0] if not account else account)
-        # query string checked from string to boolean
-        checked = str2bool(str(query_args.get('checked', [False])[0]))
         # getting pagination ready
         page_num = int(query_args.get('page', [page_num])[0])
         # rage against the finite state machine
@@ -125,14 +113,6 @@ class Handler(games.Games, BaseHandler):
             self.set_status(400)
             self.finish({'JSON':format_pass})
             return
-        # request query arguments
-        query_args = self.request.arguments
-        # get account from new game struct
-        account = struct.get('account', None)
-        # get the current frontend username from token
-        username = self.get_username_token()
-        # if the user don't provide an account we use the username
-        account = (query_args.get('account', [username])[0] if not account else account)
         # create new game struct
         game_uuid = yield self.new_game(struct)
         # complete message with receive uuid.
@@ -224,7 +204,7 @@ class Handler(games.Games, BaseHandler):
         parameters['labels'] = 'array/string'
         # end of manual cleaning
         POST = {
-            "description": "Create account",
+            "description": "Create game",
             "parameters": OrderedDict(sorted(parameters.items(), key=lambda t: t[0]))
         }
         # filter single resource
