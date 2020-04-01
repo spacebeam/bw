@@ -43,7 +43,7 @@ def options():
         help=('Server hostname'))
     # Server port
     tornado.options.define('port',
-        default=8888, type=int,
+        default=58008, type=int,
         help=('Server port'))
     # Riak host
     tornado.options.define('riak_host',
