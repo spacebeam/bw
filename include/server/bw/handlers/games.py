@@ -30,7 +30,7 @@ class Handler(games.Games, BaseHandler):
 
     @gen.coroutine
     def head(self,
-             account=None,
+             session=None,
              game_uuid=None,
              start=None,
              end=None,
@@ -51,7 +51,7 @@ class Handler(games.Games, BaseHandler):
         self.set_status(400)
         # check if we're list processing
         if not game_uuid:
-            message = yield self.get_game_list(account,
+            message = yield self.get_game_list(session,
                                                start,
                                                end,
                                                lapse,
@@ -60,14 +60,14 @@ class Handler(games.Games, BaseHandler):
             self.set_status(200)
         else:
             game_uuid = game_uuid.rstrip('/')
-            message = yield self.get_game(account, game_uuid)
+            message = yield self.get_game(session, game_uuid)
             self.set_status(200)
         # so long and thanks for all the fish
         self.finish(message)
 
     @gen.coroutine
     def get(self,
-            account=None,
+            session=None,
             game_uuid=None,
             start=None,
             end=None,
@@ -88,7 +88,7 @@ class Handler(games.Games, BaseHandler):
         self.set_status(400)
         # check if we're list processing
         if not game_uuid:
-            message = yield self.get_game_list(account,
+            message = yield self.get_game_list(session,
                                                start,
                                                end,
                                                lapse,
@@ -97,7 +97,7 @@ class Handler(games.Games, BaseHandler):
             self.set_status(200)
         else:
             game_uuid = game_uuid.rstrip('/')
-            message = yield self.get_game(account, game_uuid)
+            message = yield self.get_game(session, game_uuid)
             self.set_status(200)
         # so long and thanks for all the fish
         self.finish(message)
@@ -204,7 +204,7 @@ class Handler(games.Games, BaseHandler):
         parameters['labels'] = 'array/string'
         # end of manual cleaning
         POST = {
-            "description": "Create game",
+            "description": "Create a new game",
             "parameters": OrderedDict(sorted(parameters.items(), key=lambda t: t[0]))
         }
         # filter single resource
