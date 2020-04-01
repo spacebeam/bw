@@ -105,7 +105,7 @@ class Handler(games.Games, BaseHandler):
     @gen.coroutine
     def post(self):
         '''
-            Create new game
+            Create a new game
         '''
         struct = yield check_json(self.request.body)
         format_pass = (True if struct and not struct.get('errors') else False)
