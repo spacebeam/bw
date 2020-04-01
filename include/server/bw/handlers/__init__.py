@@ -37,8 +37,6 @@ class BaseHandler(web.RequestHandler):
         super(BaseHandler, self).initialize(**kwargs)
         # System database
         self.db = self.settings.get('db')
-        # System cache
-        self.cache = self.settings.get('cache')
         # Page settings
         self.page_size = self.settings.get('page_size')
         # Application domain
