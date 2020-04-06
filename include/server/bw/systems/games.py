@@ -58,7 +58,7 @@ class Games(object):
                 "labels": str(event.get('labels', '')),
                 "history": str(event.get('history', '')),
                 "address": str(event.get('address', '')),
-                "session ": str(event.get('session', '')),
+                "session": str(event.get('session', '')),
                 "bots": str(event.get('bots', '')),
                 "map": str(event.get('map', '')),
                 "replay": str(event.get('replay', '')),
@@ -85,6 +85,9 @@ class Games(object):
             game = bucket.new(message, data=structure)
             game.add_index("uuid_bin", message)
             game.add_index("game_int", int(structure["game"]))
+            game.add_index("session_bin", structure["session"])
+            game.add_index("bots_bin", structure["bots"])
+            game.add_index("map_bin", structure["map"])
             game.store()
         except Exception as error:
             logging.error(error)
@@ -92,7 +95,7 @@ class Games(object):
         return message
 
     @gen.coroutine
-    def get_game(self, account, game_uuid):
+    def get_game(self, session, game_uuid):
         '''
             Get game
         '''
