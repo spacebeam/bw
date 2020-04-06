@@ -3,7 +3,6 @@
 # This file is part of bw.
 
 # Distributed under the terms of the last AGPL License.
-# The full license is in the file LICENCE, distributed as part of this software.
 
 
 __author__ = 'Jean Chassoul'
@@ -11,19 +10,18 @@ __author__ = 'Jean Chassoul'
 
 import uuid
 import logging
-import ujson as json
 from tornado import gen
 from schematics.types import compound
 
 from bw.schemas import games
 from bw.schemas import BaseResult
 
-from bw.tools import clean_structure, clean_results
+from bw.tools import clean_structure
 
 from tornado import httpclient as _http_client
 
-
-_http_client.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
+curl_client = 'tornado.curl_httpclient.CurlAsyncHTTPClient'
+_http_client.AsyncHTTPClient.configure(curl_client)
 http_client = _http_client.AsyncHTTPClient()
 
 
@@ -40,45 +38,12 @@ class Games(object):
     '''
 
     @gen.coroutine
-    def get_game(self, account, game_uuid):
-        '''
-            Get game
-        '''
-        # init got response list
-        got_response = []
-        # init crash message
-        message = {'message': 'not found'}
-        
-        return message
-
-    @gen.coroutine
-    def get_game_list(self, account, start, end, lapse, status, page_num):
-        '''
-            Get task list
-        '''
-        # page number
-        page_num = int(page_num)
-        page_size = self.settings['page_size']
-        start_num = page_size * (page_num - 1)
-        # init got response list
-        got_response = []
-        # init crash message
-        message = {
-            'count': 0,
-            'page': page_num,
-            'results': []
-        }
-        
-        return message
-
-    @gen.coroutine
     def new_game(self, struct):
         '''
             New game event
         '''
-        search_index = 'bw_game_index'
-        bucket_type = 'bw_game'
         bucket_name = 'games'
+        bucket = self.db.bucket(bucket_name)
         try:
             event = games.Game(struct)
             event.validate()
@@ -116,11 +81,40 @@ class Games(object):
                 "last_update_by": str(event.get('last_update_by', '')),
                 "last_update_at": str(event.get('last_update_at', '')),
             }
-            result = ()
             message = structure.get('uuid')
+            game = bucket.new(message, data=structure)
+            game.add_index("uuid_bin", message)
+            game.add_index("game_int", int(structure["game"]))
+            game.store()
         except Exception as error:
             logging.error(error)
             message = str(error)
+        return message
+
+    @gen.coroutine
+    def get_game(self, account, game_uuid):
+        '''
+            Get game
+        '''
+        # init crash message
+        message = {'message': 'not found'}
+        return message
+
+    @gen.coroutine
+    def get_game_list(self, account, start, end, lapse, status, page_num):
+        '''
+            Get task list
+        '''
+        # page number
+        page_num = int(page_num)
+        page_size = self.settings['page_size']
+        start_num = page_size * (page_num - 1)
+        # init crash message
+        message = {
+            'count': 0,
+            'page': page_num,
+            'results': []
+        }
         return message
 
     @gen.coroutine
@@ -138,7 +132,6 @@ class Games(object):
         got_response = []
         # yours truly
         message = {'update_complete':False}
-        
         return message.get('update_complete', False)
 
     @gen.coroutine

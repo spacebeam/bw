@@ -105,7 +105,7 @@ class Handler(games.Games, BaseHandler):
     @gen.coroutine
     def post(self):
         '''
-            Create a new game
+            Create game
         '''
         struct = yield check_json(self.request.body)
         format_pass = (True if struct and not struct.get('errors') else False)
@@ -117,16 +117,7 @@ class Handler(games.Games, BaseHandler):
         game_uuid = yield self.new_game(struct)
         # complete message with receive uuid.
         message = {'uuid':game_uuid}
-        if 'error' in message['uuid']:
-            scheme = 'game'
-            reason = {'duplicates': [
-                (scheme, 'account'),
-                (scheme, 'uuid')
-            ]}
-            message = yield self.let_it_crash(struct, scheme, message['uuid'], reason)
-            self.set_status(400)
-        else:
-            self.set_status(201)
+        self.set_status(201)
         self.finish(message)
 
     @gen.coroutine
