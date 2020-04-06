@@ -99,8 +99,20 @@ class Games(object):
         '''
             Get game
         '''
-        # init crash message
-        message = {'message': 'not found'}
+        
+        # session was old account it seems its no needed at all in our current context
+        # also we can query by different indexes, session is one of them
+        # that is the only reason this stays here for a little longer
+        # but the same can me said about map and bots index and those are missing!
+        
+        bucket_name = 'games'
+        bucket = self.db.bucket(bucket_name)
+        results = bucket.get_index("uuid_bin", game_uuid)
+        message = [y.data for y in (bucket.get(x) for x in results)]
+        if message:
+            message = message[0]
+        else:
+            message = {'message': 'not found'}
         return message
 
     @gen.coroutine

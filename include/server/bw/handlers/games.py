@@ -62,7 +62,6 @@ class Handler(games.Games, BaseHandler):
             game_uuid = game_uuid.rstrip('/')
             message = yield self.get_game(session, game_uuid)
             self.set_status(200)
-        # so long and thanks for all the fish
         self.finish(message)
 
     @gen.coroutine
@@ -78,6 +77,8 @@ class Handler(games.Games, BaseHandler):
         '''
         # request query arguments
         query_args = self.request.arguments
+        # session, tournament, run?
+        session = query_args.get('session', session)
         # getting pagination ready
         page_num = int(query_args.get('page', [page_num])[0])
         # rage against the finite state machine
