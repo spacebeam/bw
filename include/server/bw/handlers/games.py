@@ -3,7 +3,6 @@
 # This file is part of bw.
 
 # Distributed under the terms of the last AGPL License.
-# The full license is in the file LICENCE, distributed as part of this software.
 
 
 __author__ = 'Jean Chassoul'
@@ -196,7 +195,7 @@ class Handler(games.Games, BaseHandler):
         parameters['labels'] = 'array/string'
         # end of manual cleaning
         POST = {
-            "description": "Create a new game",
+            "description": "Create new game",
             "parameters": OrderedDict(sorted(parameters.items(), key=lambda t: t[0]))
         }
         # filter single resource

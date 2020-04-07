@@ -51,6 +51,9 @@ class Games(object):
         except Exception as error:
             raise error
         try:
+            #
+            # this is the reminder of an old more complex and lost confused past
+            #
             structure = {
                 "uuid": str(event.get('uuid', str(uuid.uuid4()))),
                 "game": str(event.get('game', '')),
@@ -116,7 +119,7 @@ class Games(object):
         return message
 
     @gen.coroutine
-    def get_game_list(self, account, start, end, lapse, status, page_num):
+    def get_game_list(self, session, start, end, lapse, status, page_num):
         '''
             Get task list
         '''
@@ -124,16 +127,23 @@ class Games(object):
         page_num = int(page_num)
         page_size = self.settings['page_size']
         start_num = page_size * (page_num - 1)
+        
+        
+        # howto do pagination with secondary indexes ?
+        
+        
         # init crash message
         message = {
             'count': 0,
             'page': page_num,
             'results': []
         }
+
+
         return message
 
     @gen.coroutine
-    def modify_game(self, account, game_uuid, struct):
+    def modify_game(self, session, game_uuid, struct):
         '''
             Modify game
         '''
@@ -150,12 +160,12 @@ class Games(object):
         return message.get('update_complete', False)
 
     @gen.coroutine
-    def remove_game(self, account, game_uuid):
+    def remove_game(self, session, game_uuid):
         '''
             Remove game
         '''
         # Missing history ?
         struct = {}
         struct['status'] = 'deleted'
-        message = yield self.modify_game(account, game_uuid, struct)
+        message = yield self.modify_game(session, game_uuid, struct)
         return message
