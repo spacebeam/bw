@@ -89,8 +89,6 @@ class Games(object):
             game.add_index("uuid_bin", message)
             game.add_index("game_int", int(structure["game"]))
             game.add_index("session_bin", structure["session"])
-            game.add_index("bots_bin", structure["bots"])
-            game.add_index("map_bin", structure["map"])
             game.store()
         except Exception as error:
             logging.error(error)
@@ -106,7 +104,6 @@ class Games(object):
         # session was old account it seems its no needed at all in our current context
         # also we can query by different indexes, session is one of them
         # that is the only reason this stays here for a little longer
-        # but the same can me said about map and bots index and those are missing!
         
         bucket_name = 'games'
         bucket = self.db.bucket(bucket_name)
@@ -128,18 +125,25 @@ class Games(object):
         page_size = self.settings['page_size']
         start_num = page_size * (page_num - 1)
         
-        
         # howto do pagination with secondary indexes ?
+        bucket_name = 'games'
+        bucket = self.db.bucket(bucket_name)
         
-        
-        # init crash message
-        message = {
-            'count': 0,
-            'page': page_num,
-            'results': []
-        }
-
-
+        results = bucket.stream_index("game_int", 1, 9)
+        message = [y.data for y in (bucket.get(x[0]) for x in results)]
+        if message:
+            message = {
+                'count': 0,
+                'page': page_num,
+                'results': message
+            }
+        else:
+            # init crash message
+            message = {
+                'count': 0,
+                'page': page_num,
+                'results': []
+            }
         return message
 
     @gen.coroutine

@@ -3,7 +3,6 @@
 # This file is part of bw.
 
 # Distributed under the terms of the last AGPL License.
-# The full license is in the file LICENCE, distributed as part of this software.
 
 
 __author__ = 'Jean Chassoul'
@@ -36,7 +35,7 @@ def options():
     # Server domain
     tornado.options.define('domain',
         default='*', type=str,
-        help='Application domain, e.g: "example.com"')
+        help='Application domain, e.g: "torchup.org"')
     # Server host
     tornado.options.define('host',
         default='127.0.0.1', type=str,
