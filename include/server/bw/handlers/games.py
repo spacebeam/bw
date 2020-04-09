@@ -8,16 +8,12 @@
 __author__ = 'Jean Chassoul'
 
 
-import uuid
-import logging
-import ujson as json
 from tornado import gen
-from tornado import web
 
 from bw.schemas import games as models
 from bw.systems import games
 
-from bw.tools import str2bool, check_json
+from bw.tools import check_json
 from bw.handlers import BaseHandler
 from collections import OrderedDict
 
@@ -45,7 +41,7 @@ class Handler(games.Games, BaseHandler):
         # rage against the finite state machine
         status = 'all'
         # init message on error
-        message = {'error':True}
+        message = {'error': True}
         # init status that match with our message
         self.set_status(400)
         # check if we're list processing
@@ -83,7 +79,7 @@ class Handler(games.Games, BaseHandler):
         # rage against the finite state machine
         status = 'all'
         # init message on error
-        message = {'error':True}
+        message = {'error': True}
         # init status that match with our message
         self.set_status(400)
         # check if we're list processing
@@ -111,12 +107,12 @@ class Handler(games.Games, BaseHandler):
         format_pass = (True if struct and not struct.get('errors') else False)
         if not format_pass:
             self.set_status(400)
-            self.finish({'JSON':format_pass})
+            self.finish({'JSON': format_pass})
             return
         # create new game struct
         game_uuid = yield self.new_game(struct)
         # complete message with receive uuid.
-        message = {'uuid':game_uuid}
+        message = {'uuid': game_uuid}
         self.set_status(201)
         self.finish(message)
 
@@ -126,10 +122,10 @@ class Handler(games.Games, BaseHandler):
             Modify game
         '''
         struct = yield check_json(self.request.body)
-        format_pass = (True if not dict(struct).get('errors', False) else False)
+        format_pass = (True if not dict(struct).get('errors') else False)
         if not format_pass:
             self.set_status(400)
-            self.finish({'JSON':format_pass})
+            self.finish({'JSON': format_pass})
             return
         account = self.request.arguments.get('account', [None])[0]
         if not account:
@@ -168,11 +164,14 @@ class Handler(games.Games, BaseHandler):
             Resource options
         '''
         self.set_header('Access-Control-Allow-Origin', '*')
-        self.set_header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PATCH, DELETE, OPTIONS')
-        self.set_header('Access-Control-Allow-Headers', ''.join(('Accept-Language,',
-                        'DNT,Keep-Alive,User-Agent,X-Requested-With,',
-                        'If-Modified-Since,Cache-Control,Content-Type,',
-                        'Content-Range,Range,Date,Etag')))
+        self.set_header('Access-Control-Allow-Methods',
+                        'HEAD, GET, POST, PATCH, DELETE, OPTIONS')
+        self.set_header('Access-Control-Allow-Headers',
+                        ''.join(
+                            ('Accept-Language,',
+                             'DNT,Keep-Alive,User-Agent,X-Requested-With,',
+                             'If-Modified-Since,Cache-Control,Content-Type,',
+                             'Content-Range,Range,Date,Etag')))
         # allowed http methods
         message = {
             'Allow': ['HEAD', 'GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS']
@@ -196,7 +195,8 @@ class Handler(games.Games, BaseHandler):
         # end of manual cleaning
         POST = {
             "description": "Create new game",
-            "parameters": OrderedDict(sorted(parameters.items(), key=lambda t: t[0]))
+            "parameters": OrderedDict(
+                sorted(parameters.items(), key=lambda t: t[0]))
         }
         # filter single resource
         if not game_uuid:

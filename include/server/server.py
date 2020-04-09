@@ -10,18 +10,18 @@ __author__ = 'Jean Chassoul'
 
 import uuid
 import riak
-import sys
 import logging
 
-from functools import partial
-from zmq.eventloop.future import Context
-from zmq.eventloop.ioloop import IOLoop
-
 from tornado import ioloop
-from tornado import gen, web
+from tornado import web
 from bw.handlers import BaseHandler as StatusHandler
 from bw.handlers import games
 from bw.tools import options
+
+
+# missing sessions resource
+
+# missing zmq integration
 
 
 def main():
@@ -34,7 +34,7 @@ def main():
     db = riak.RiakClient(host=opts.riak_host, pb_port=8087)
     # System uuid
     system_uuid = uuid.uuid4()
-    # System spawned 
+    # System spawned
     logging.info('bw {0} spawned'.format(system_uuid))
     # debug riak settings
     logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))

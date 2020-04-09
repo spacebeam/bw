@@ -10,8 +10,6 @@ __author__ = 'Jean Chassoul'
 
 import uuid
 import datetime
-import logging
-import ujson as json
 
 from schematics import models
 from schematics import types
@@ -24,7 +22,7 @@ class Game(models.Model):
     '''
     uuid = types.UUIDType(default=uuid.uuid4)
     game = types.IntType(required=True)
-    status = types.StringType() # <------------------- where are the init game status?
+    status = types.StringType()  # <------- where are the init game status?
     labels = types.DictType(types.StringType)
     history = compound.ListType(types.StringType())
     address = types.IPAddressType()
@@ -66,4 +64,4 @@ class ModifyGame(Game):
         outside the scope of the resource.
     '''
     # Syntax is irrelevant, but no it isn't
-    pass # <----------------------------------- WTF!
+    pass   # <-----------------------------  WTF!
