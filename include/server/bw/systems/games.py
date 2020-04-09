@@ -81,28 +81,30 @@ class Games(object):
         '''
             Get task list
         '''
-        results = []
+        # r is for results!
+        r = []
         upper_limit = 58806 * 3
-        # page number
         page_num = int(page_num)
         page_size = self.settings['page_size']
         start_num = page_size * (page_num - 1)
-        # howto do pagination with secondary indexes ?
+        # ?
         bucket_name = 'games'
         bucket = self.db.bucket(bucket_name)
         query = bucket.stream_index("game_int", 1, upper_limit)
         for x in query:
             for y in x:
-                results.append(y)
-
-        logging.info(start_num)
-
-        results = [y.data for y in (bucket.get(x) for x in results)]
-        if results:
+                r.append(y)
+        total = len(r)
+        # pagination still missing, 
+        # we got some progress and are currently displaying the first page
+        # but how to change consistently our pages? :p
+        r = [y.data for y in (bucket.get(x) for x in r[start_num:page_size])]
+        # !
+        if r:
             message = {
-                'count': len(results),
+                'count': total,
                 'page': page_num,
-                'results': results
+                'results': r
             }
         else:
             # init crash message
