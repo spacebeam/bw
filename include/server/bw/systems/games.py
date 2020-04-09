@@ -87,22 +87,25 @@ class Games(object):
         '''
             Get task list
         '''
+        results = []
+        upper_limit = 58806 * 3
         # page number
         page_num = int(page_num)
         page_size = self.settings['page_size']
         start_num = page_size * (page_num - 1)
-        
         # howto do pagination with secondary indexes ?
         bucket_name = 'games'
         bucket = self.db.bucket(bucket_name)
-        
-        results = bucket.stream_index("game_int", 1, 9)
-        message = [y.data for y in (bucket.get(x[0]) for x in results)]
-        if message:
+        query = bucket.stream_index("game_int", 1, upper_limit)
+        for x in query:
+            for y in x:
+                results.append(y)
+        results = [y.data for y in (bucket.get(x) for x in results)]
+        if results:
             message = {
-                'count': 0,
+                'count': len(results),
                 'page': page_num,
-                'results': message
+                'results': results
             }
         else:
             # init crash message
