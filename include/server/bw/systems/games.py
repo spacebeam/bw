@@ -81,38 +81,32 @@ class Games(object):
         '''
             Get task list
         '''
+        
+        #
+        # cool and all but wtf with session, start, end, lapse and status?
+        #
+
         # r is for results!
         r = []
+        message = {
+            'count': 0,
+            'page': page_num,
+            'results': r}
         upper_limit = 58806 * 3
         page_num = int(page_num)
         page_size = self.settings['page_size']
         start_num = page_size * (page_num - 1)
-        # ?
+        end_num = start_num + page_size
         bucket_name = 'games'
         bucket = self.db.bucket(bucket_name)
         query = bucket.stream_index("game_int", 1, upper_limit)
         for x in query:
             for y in x:
                 r.append(y)
-        total = len(r)
-        # pagination still missing, 
-        # we got some progress and are currently displaying the first page
-        # but how to change consistently our pages? :p
-        r = [y.data for y in (bucket.get(x) for x in r[start_num:page_size])]
-        # !
-        if r:
-            message = {
-                'count': total,
-                'page': page_num,
-                'results': r
-            }
-        else:
-            # init crash message
-            message = {
-                'count': 0,
-                'page': page_num,
-                'results': []
-            }
+        message['count'] = len(r)
+        message['results'] = [
+            y.data for y in (bucket.get(x) for x in r[start_num:end_num])
+        ]
         return message
 
     @gen.coroutine
