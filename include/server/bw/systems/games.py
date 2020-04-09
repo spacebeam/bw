@@ -8,7 +8,6 @@
 __author__ = 'Jean Chassoul'
 
 
-import uuid
 import logging
 from tornado import gen
 from schematics.types import compound
@@ -67,11 +66,6 @@ class Games(object):
         '''
             Get game
         '''
-        
-        # session was old account it seems its no needed at all in our current context
-        # also we can query by different indexes, session is one of them
-        # that is the only reason this stays here for a little longer
-        
         bucket_name = 'games'
         bucket = self.db.bucket(bucket_name)
         results = bucket.get_index("uuid_bin", game_uuid)
@@ -100,6 +94,9 @@ class Games(object):
         for x in query:
             for y in x:
                 results.append(y)
+
+        logging.info(start_num)
+
         results = [y.data for y in (bucket.get(x) for x in results)]
         if results:
             message = {
@@ -121,16 +118,7 @@ class Games(object):
         '''
             Modify game
         '''
-        # riak search index
-        search_index = 'bw_game_index'
-        # riak bucket type
-        bucket_type = 'bw_game'
-        # riak bucket name
-        bucket_name = 'games'
-        # got callback response?
-        got_response = []
-        # yours truly
-        message = {'update_complete':False}
+        message = {'update_complete': False}
         return message.get('update_complete', False)
 
     @gen.coroutine
