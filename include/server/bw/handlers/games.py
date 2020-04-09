@@ -84,6 +84,9 @@ class Handler(games.Games, BaseHandler):
         self.set_status(400)
         # check if we're list processing
         if not game_uuid:
+
+            # TODO: missing session, start, end, lapse and status support!
+
             message = yield self.get_game_list(session,
                                                start,
                                                end,
