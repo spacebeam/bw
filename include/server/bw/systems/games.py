@@ -54,7 +54,7 @@ class Games(object):
             message = event["uuid"]
             game = bucket.new(message, data=event)
             game.add_index("uuid_bin", message)
-            game.add_index("game_int", int(event["game"]))
+            game.add_index("game_int", event["game"])
             game.add_index("session_bin", event["session"])
             game.store()
         except Exception as error:
