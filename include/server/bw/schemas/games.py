@@ -8,9 +8,8 @@
 __author__ = 'Jean Chassoul'
 
 
-import arrow
 import uuid
-
+import datetime
 import logging
 import ujson as json
 
@@ -23,8 +22,8 @@ class Game(models.Model):
     '''
         Game Data Structure
     '''
-    uuid = types.UUIDType(default=uuid.uuid4())
-    game = types.IntType()
+    uuid = types.UUIDType(default=uuid.uuid4)
+    game = types.IntType(required=True)
     status = types.StringType() # <------------------- where are the init game status?
     labels = types.DictType(types.StringType)
     history = compound.ListType(types.StringType())
@@ -48,7 +47,7 @@ class Game(models.Model):
     away_razing_score = types.IntType()
     away_unit_score = types.IntType()
     created_by = types.UUIDType()
-    created_at = types.TimestampType(default=arrow.utcnow().timestamp)
+    created_at = types.DateTimeType(default=datetime.datetime.utcnow)
     last_update_by = types.UUIDType()
     last_update_at = types.TimestampType()
 

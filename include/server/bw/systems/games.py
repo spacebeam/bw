@@ -51,44 +51,11 @@ class Games(object):
         except Exception as error:
             raise error
         try:
-            #
-            # this is the reminder of an old more complex and lost confused past
-            #
-            structure = {
-                "uuid": str(event.get('uuid', str(uuid.uuid4()))),
-                "game": str(event.get('game', '')),
-                "status": str(event.get('status', '')),
-                "labels": str(event.get('labels', '')),
-                "history": str(event.get('history', '')),
-                "address": str(event.get('address', '')),
-                "session": str(event.get('session', '')),
-                "bots": str(event.get('bots', '')),
-                "map": str(event.get('map', '')),
-                "replay": str(event.get('replay', '')),
-                "home": str(event.get('home', '')),
-                "home_is_winner": str(event.get('home_is_winner', '')),
-                "home_crashed": str(event.get('home_crashed', '')),
-                "home_timed_out": str(event.get('home_timed_out', '')),
-                "home_building_score": str(event.get('home_building_score', '')),
-                "home_razing_score": str(event.get('home_razing_score', '')),
-                "home_unit_score": str(event.get('home_unit_score', '')),
-                "away": str(event.get('away', '')),
-                "away_is_winner": str(event.get('away_is_winner', '')),
-                "away_crashed": str(event.get('away_crashed', '')),
-                "away_timed_out": str(event.get('away_timed_out', '')),
-                "away_building_score": str(event.get('away_building_score', '')),
-                "away_razing_score": str(event.get('away_razing_score', '')),
-                "away_unit_score": str(event.get('away_unit_score', '')),
-                "created_by": str(event.get('created_by', '')),
-                "created_at": str(event.get('created_at', '')),
-                "last_update_by": str(event.get('last_update_by', '')),
-                "last_update_at": str(event.get('last_update_at', '')),
-            }
-            message = structure.get('uuid')
-            game = bucket.new(message, data=structure)
+            message = event["uuid"]
+            game = bucket.new(message, data=event)
             game.add_index("uuid_bin", message)
-            game.add_index("game_int", int(structure["game"]))
-            game.add_index("session_bin", structure["session"])
+            game.add_index("game_int", int(event["game"]))
+            game.add_index("session_bin", event["session"])
             game.store()
         except Exception as error:
             logging.error(error)
