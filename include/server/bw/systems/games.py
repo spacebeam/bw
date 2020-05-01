@@ -86,7 +86,6 @@ class Games(object):
         # cool and all but wtf with session, start, end, lapse and status?
         #
 
-        # r is for results!
         r = []
         message = {
             'count': 0,
@@ -114,6 +113,18 @@ class Games(object):
         '''
             Modify game
         '''
+        bucket_name = 'games'
+        bucket = self.db.bucket(bucket_name)
+        results = bucket.get_index("uuid_bin", game_uuid)
+        message = [y.data for y in (bucket.get(x) for x in results)]
+        if message:
+            message = message[0]
+        else:
+            message = {'message': 'not found'}
+            
+        logging.error(message)
+        logging.error(struct)
+            
         message = {'update_complete': False}
         return message.get('update_complete', False)
 
@@ -122,7 +133,7 @@ class Games(object):
         '''
             Remove game
         '''
-        # Missing history ?
+        # Missing history !
         struct = {}
         struct['status'] = 'deleted'
         message = yield self.modify_game(session, game_uuid, struct)

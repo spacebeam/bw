@@ -126,23 +126,23 @@ class Handler(games.Games, BaseHandler):
         '''
         struct = yield check_json(self.request.body)
         format_pass = (True if not dict(struct).get('errors') else False)
+        message = {'message': 'not found'}
         if not format_pass:
             self.set_status(400)
             self.finish({'JSON': format_pass})
             return
-        account = self.request.arguments.get('account', [None])[0]
-        if not account:
-            # if not account we try to get the account from struct
-            account = struct.get('account', None)
-        result = yield self.modify_game(account, game_uuid, struct)
+        session = self.request.arguments.get('session', [None])[0]
+        if not session:
+            # if no session try to get session from struct
+            session = struct.get('session', None)
+        result = yield self.modify_game(session, game_uuid, struct)
         if not result:
             self.set_status(400)
-            system_error = errors.Error('missing')
-            error = system_error.missing('game', game_uuid)
-            self.finish(error)
+            self.finish(message)
             return
         self.set_status(200)
-        self.finish({'message': 'update completed successfully'})
+        message = {'message': 'update completed successfully'}
+        self.finish(message)
 
     @gen.coroutine
     def delete(self, game_uuid):
@@ -150,6 +150,7 @@ class Handler(games.Games, BaseHandler):
             Delete game
         '''
         query_args = self.request.arguments
+        # TBD: account is wrong!
         account = query_args.get('account', [None])[0]
         result = yield self.remove_game(account, game_uuid)
         if not result:

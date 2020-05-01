@@ -8,20 +8,35 @@
 __author__ = 'Jean Chassoul'
 
 
+# if "serverless" we need "double" execution scheme if server is already bind.
+
+
 import uuid
 import riak
 import logging
 
+from functools import partial
+
+from zmq.eventloop.future import Context
+from zmq.eventloop.ioloop import IOLoop
+
 from tornado import ioloop
 from tornado import web
+from tornado import gen
+
 from bw.handlers import BaseHandler as StatusHandler
 from bw.handlers import games
 from bw.tools import options
-
+from bw.tools import zstreams
 
 # missing sessions resource
+# missing containers resource?
 
-# missing zmq integration
+
+@gen.coroutine
+def run(host, port):
+    context = Context()
+    yield zstreams.run_producer(context, host, port-3)
 
 
 def main():
@@ -54,6 +69,14 @@ def main():
     # Listen daemon on port
     application.listen(opts.port)
     logging.info('Listen on http://{0}:{1}'.format(opts.host, opts.port))
+
+    # Setting up the ZeroMQ integration
+    IOLoop.current().spawn_callback(
+        partial(run, opts.host, opts.port, )
+    )
+
+    # missing collector as well?
+
     # Start the eventloop
     ioloop.IOLoop.instance().start()
 
