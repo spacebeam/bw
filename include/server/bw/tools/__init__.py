@@ -8,9 +8,7 @@
 __author__ = 'Jean Chassoul'
 
 
-import time
 import arrow
-import csv
 import ujson as json
 import logging
 import uuid
@@ -33,21 +31,13 @@ def validate_uuid4(uuid_string):
         return False
     return str(val) == uuid_string
 
-def clean_response(response, ignore):
-    '''
-        clean response
-    '''
-    return dict(
-        (key.split('_register')[0], value)
-        for (key, value) in response.items()
-        if key not in ignore
-    )
-    
+
 def get_average(total, marks):
     '''
         Get average from signals
     '''
     return float(total) / len(marks)
+
 
 def get_percentage(part, whole):
     '''
@@ -55,6 +45,7 @@ def get_percentage(part, whole):
 
     '''
     return "{0:.0f}%".format(float(part)/whole * 100)
+
 
 @gen.coroutine
 def check_json(struct):
@@ -64,9 +55,10 @@ def check_json(struct):
     try:
         message = json.loads(struct)
     except Exception as error:
-        message = json.dumps({'error':400})
+        message = json.dumps({'error': 400})
         raise error
     return message
+
 
 @gen.coroutine
 def check_times(start, end):
@@ -74,13 +66,15 @@ def check_times(start, end):
         Check times
     '''
     try:
-        start = (arrow.get(start) if start else arrow.get(arrow.utcnow().date()))
+        start = (arrow.get(start) if start
+                 else arrow.get(arrow.utcnow().date()))
         end = (arrow.get(end) if end else start.replace(days=+1))
-        message = {'start':start.timestamp, 'end':end.timestamp}
+        message = {'start': start.timestamp, 'end': end.timestamp}
     except Exception as error:
         logging.exception(error)
         raise error
     return message
+
 
 @gen.coroutine
 def check_times_get_timestamp(start, end):
@@ -88,13 +82,15 @@ def check_times_get_timestamp(start, end):
         Check times get timestamp
     '''
     try:
-        start = (arrow.get(start) if start else arrow.get(arrow.utcnow().date()))
+        start = (arrow.get(start) if start
+                 else arrow.get(arrow.utcnow().date()))
         end = (arrow.get(end) if end else start.replace(days=+1))
-        message = {'start':start.timestamp, 'end':end.timestamp}
+        message = {'start': start.timestamp, 'end': end.timestamp}
     except Exception as error:
         logging.exception(error)
-        raise error    
+        raise error
     return message
+
 
 @gen.coroutine
 def check_times_get_datetime(start, end):
@@ -102,13 +98,15 @@ def check_times_get_datetime(start, end):
         Check times get datetime
     '''
     try:
-        start = (arrow.get(start) if start else arrow.get(arrow.utcnow().date()))
+        start = (arrow.get(start) if start
+                 else arrow.get(arrow.utcnow().date()))
         end = (arrow.get(end) if end else start.replace(days=+1))
-        message = {'start':start.naive, 'end':end.naive}
+        message = {'start': start.naive, 'end': end.naive}
     except Exception as error:
         logging.exception(error)
         raise error
     return message
+
 
 def clean_message(struct):
     '''
@@ -116,11 +114,10 @@ def clean_message(struct):
     '''
     struct = struct.to_native()
     struct = {
-        key: struct[key]
-            for key in struct
-                if struct[key] is not None
+        key: struct[key] for key in struct if struct[key] is not None
     }
     return struct
+
 
 def clean_structure(struct):
     '''
@@ -128,11 +125,10 @@ def clean_structure(struct):
     '''
     struct = struct.to_primitive()
     struct = {
-        key: struct[key]
-            for key in struct
-                if struct[key] is not None
+        key: struct[key] for key in struct if struct[key] is not None
     }
     return struct
+
 
 def clean_results(results):
     '''
@@ -142,12 +138,11 @@ def clean_results(results):
     results = results.get('results')
     results = [
         {
-            key: dic[key]
-                for key in dic
-                    if dic[key] is not None
+            key: dic[key] for key in dic if dic[key] is not None
         } for dic in results
     ]
     return {'results': results}
+
 
 def str2bool(boo):
     '''

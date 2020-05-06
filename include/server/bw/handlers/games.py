@@ -7,7 +7,7 @@
 
 __author__ = 'Jean Chassoul'
 
-
+import logging
 from tornado import gen
 
 from bw.schemas import games as models
@@ -150,14 +150,12 @@ class Handler(games.Games, BaseHandler):
             Delete game
         '''
         query_args = self.request.arguments
-        # TBD: account is wrong!
-        account = query_args.get('account', [None])[0]
-        result = yield self.remove_game(account, game_uuid)
+        session = query_args.get('session', [None])[0]
+        result = yield self.remove_game(session, game_uuid)
         if not result:
             self.set_status(400)
-            system_error = errors.Error('missing')
-            error = system_error.missing('game', game_uuid)
-            self.finish(error)
+            message = {'message': 'Error something was wrong!'}
+            self.finish(message)
             return
         self.set_status(204)
         self.finish()
@@ -188,6 +186,7 @@ class Handler(games.Games, BaseHandler):
             try:
                 stuff = models.Game.get_mock_object().to_primitive()
             except Exception as error:
+                logging.warning(error)
                 pass
         for k, v in stuff.items():
             if v is None:

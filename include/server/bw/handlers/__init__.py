@@ -8,19 +8,13 @@
 __author__ = 'Jean Chassoul'
 
 
-import uuid
-import logging
-import ujson as json
 from tornado import gen
 from tornado import web
 
-# ?
-
-from bw.tools import clean_structure, validate_uuid4
 from tornado import httpclient as _http_client
 
-
-_http_client.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
+_curl_client = 'tornado.curl_httpclient.CurlAsyncHTTPClient'
+_http_client.AsyncHTTPClient.configure(_curl_client)
 http_client = _http_client.AsyncHTTPClient()
 
 
@@ -45,7 +39,8 @@ class BaseHandler(web.RequestHandler):
         '''
             default headers
         '''
-        self.set_header("Access-Control-Allow-Origin", self.settings.get('domain', '*'))
+        self.set_header("Access-Control-Allow-Origin",
+                        self.settings.get('domain', '*'))
 
     @gen.coroutine
     def get(self):

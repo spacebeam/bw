@@ -81,11 +81,9 @@ class Games(object):
         '''
             Get task list
         '''
-        
         #
         # cool and all but wtf with session, start, end, lapse and status?
         #
-
         r = []
         message = {
             'count': 0,
@@ -121,10 +119,8 @@ class Games(object):
             message = message[0]
         else:
             message = {'message': 'not found'}
-            
         logging.error(message)
         logging.error(struct)
-            
         message = {'update_complete': False}
         return message.get('update_complete', False)
 

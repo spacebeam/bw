@@ -36,8 +36,13 @@ parser:command("status")
 parser:command("version")
 -- Parse your arguments
 local args = parser:parse()
+
 -- internal session variables
+
 local cpu_1, cpu_2  = nil, nil
+inspect(cpu_1)
+inspect(cpu_2)
+
 -- StarCraft 1.16.1 directory
 args['directory'] = "/opt/StarCraft"
 local session = options.get_session_conf(args['directory'])
