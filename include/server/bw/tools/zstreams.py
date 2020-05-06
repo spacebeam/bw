@@ -8,17 +8,15 @@
 __author__ = 'Jean Chassoul'
 
 
-import uuid
 import zmq
 import logging
-import ujson as json
 
 from tornado import gen
 
 from tornado import httpclient as _http_client
 
-
-_http_client.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
+_curl_client = 'tornado.curl_httpclient.CurlAsyncHTTPClient'
+_http_client.AsyncHTTPClient.configure(_curl_client)
 http_client = _http_client.AsyncHTTPClient()
 
 
@@ -48,8 +46,8 @@ def run_producer(context, host, port):
     logging.info("Signal the collector to syncronize the batch")
     while True:
         yield collect.send(b'0')
-        #games = yield check_active_games()
-        #for g in games.get('results'):
+        # games = yield check_active_games()
+        # for g in games.get('results'):
         #    status = yield processing_game_status(host, g)
         #    workload = yield produce_game_workload(host, g)
         #    total_work = len(workload)
