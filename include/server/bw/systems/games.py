@@ -114,14 +114,19 @@ class Games(object):
         bucket_name = 'games'
         bucket = self.db.bucket(bucket_name)
         results = bucket.get_index("uuid_bin", game_uuid)
-        message = [y.data for y in (bucket.get(x) for x in results)]
+        message = [y for y in (bucket.get(x) for x in results)]
         if message:
             message = message[0]
         else:
             message = {'message': 'not found'}
-        logging.error(message)
-        logging.error(struct)
-        message = {'update_complete': False}
+        message.data.update(struct)
+        try:
+            event = games.Game(message.data)
+            event.validate()
+        except Exception as error:
+            raise error
+        message.store()
+        message = {'update_complete': True}
         return message.get('update_complete', False)
 
     @gen.coroutine
