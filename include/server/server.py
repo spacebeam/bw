@@ -29,8 +29,7 @@ from bw.handlers import games
 from bw.tools import options
 from bw.tools import zstreams
 
-# missing sessions resource
-# missing containers resource?
+# missing sessions resource?
 
 
 @gen.coroutine
@@ -76,6 +75,8 @@ def main():
     )
 
     # missing collector as well?
+    # D:
+    # where is your zstreams stuff?
 
     # Start the eventloop
     ioloop.IOLoop.instance().start()

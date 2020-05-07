@@ -190,11 +190,11 @@ class Handler(games.Games, BaseHandler):
                 pass
         for k, v in stuff.items():
             if v is None:
-                parameters[k] = str(type('none'))
+                parameters[k] = str(type('none'))[1:-1].split(' ')[1][1:-1]
             else:
-                parameters[k] = str(type(v))
+                parameters[k] = str(type(v))[1:-1].split(' ')[1][1:-1]
         # after automatic madness return description and parameters
-        parameters['labels'] = 'array/string'
+        parameters['labels'] = 'list/str'
         # end of manual cleaning
         POST = {
             "description": "Create new game",

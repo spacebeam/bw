@@ -7,7 +7,7 @@
 
 __author__ = 'Jean Chassoul'
 
-
+import riak
 import logging
 from tornado import gen
 from schematics.types import compound
@@ -117,16 +117,19 @@ class Games(object):
         message = [y for y in (bucket.get(x) for x in results)]
         if message:
             message = message[0]
+            message.data.update(struct)
         else:
-            message = {'message': 'not found'}
-        message.data.update(struct)
-        try:
-            event = games.Game(message.data)
-            event.validate()
-        except Exception as error:
-            raise error
-        message.store()
-        message = {'update_complete': True}
+            message = {'error': 'not found'}
+        if type(message) == riak.RiakObject:
+            try:
+                event = games.Game(message.data)
+                event.validate()
+            except Exception as error:
+                raise error
+            message.store()
+            message = {'update_complete': True}
+        else:
+            message = {}
         return message.get('update_complete', False)
 
     @gen.coroutine
