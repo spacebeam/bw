@@ -21,6 +21,16 @@ http_client = _http_client.AsyncHTTPClient()
 
 
 @gen.coroutine
+def init_game_status(host, game):
+    pass
+
+
+@gen.coroutine
+def starting_game_workload(host, game):
+    pass
+
+
+@gen.coroutine
 def run_collector(context, port):
     # Socket to receive messages on
     receiver = context.socket(zmq.PULL)
@@ -48,8 +58,8 @@ def run_producer(context, host, port):
         yield collect.send(b'0')
         # games = yield check_active_games()
         # for g in games.get('results'):
-        #    status = yield processing_game_status(host, g)
-        #    workload = yield produce_game_workload(host, g)
+        #    status = yield init_game_status(host, g)
+        #    workload = yield starting_game_workload(host, g)
         #    total_work = len(workload)
         #    for x in range(total_work):
         #        workload[x]['game_ref'] = g
