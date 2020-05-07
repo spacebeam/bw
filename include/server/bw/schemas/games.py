@@ -22,7 +22,11 @@ class Game(models.Model):
     '''
     uuid = types.UUIDType(default=uuid.uuid4)
     game = types.IntType(required=True)
-    status = types.StringType()  # <------- where are the init game status?
+    status = types.StringType(choices=['new',
+                                       'starting',
+                                       'in-progress',
+                                       'completed',
+                                       'deleted'], default='new')
     labels = types.DictType(types.StringType)
     history = compound.ListType(types.StringType())
     address = types.IPAddressType()
@@ -48,20 +52,3 @@ class Game(models.Model):
     created_at = types.DateTimeType(default=datetime.datetime.utcnow)
     last_update_by = types.UUIDType()
     last_update_at = types.TimestampType()
-
-
-class ModifyGame(Game):
-    '''
-        Modify Game
-
-        This model is similar to Game.
-
-        It lacks of require and default values on it's fields.
-
-        The reason of it existence is that we need to validate
-        every input data that came from outside the system, with
-        this we prevent users from using PATCH to create fields
-        outside the scope of the resource.
-    '''
-    # Syntax is irrelevant, but no it isn't
-    pass   # <-----------------------------  WTF!
