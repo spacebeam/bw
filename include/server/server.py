@@ -75,7 +75,7 @@ def main():
     )
 
     # missing collector as well?
-    # D:
+    # D: D: D:
     # where is your zstreams stuff?
 
     # Start the eventloop
