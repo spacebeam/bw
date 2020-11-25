@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of bw.
 
 # Distributed under the terms of the last AGPL License.
@@ -7,16 +5,14 @@
 
 __author__ = 'Jean Chassoul'
 
+
 import riak
 import logging
 from tornado import gen
 from schematics.types import compound
-
 from bw.schemas import games
 from bw.schemas import BaseResult
-
 from bw.tools import clean_structure
-
 from tornado import httpclient as _http_client
 
 curl_client = 'tornado.curl_httpclient.CurlAsyncHTTPClient'
