@@ -5,7 +5,9 @@ riak
 schematics
 scipy
 pyzmq
-Jinja2
+couchdb2
+cloudant
+msgpack
 arrow
 pycurl
 ujson

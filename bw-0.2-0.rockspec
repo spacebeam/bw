@@ -1,5 +1,4 @@
 -- And Now For Something Completely Different
-
 package = "bw"
 version = "0.2-0"
 
@@ -13,7 +12,7 @@ description = {
   detailed = "It can download and launch Win32 C++ and Java bots " ..
   "or any Linux® bot with support for BWAPI 4.1.2, 4.2.0, 4.4.0.",
   homepage = "https://github.com/spacebeam",
-  license = "AGPL3"
+  license = "Apache-2.0"
 }
 
 dependencies = {
@@ -22,10 +21,10 @@ dependencies = {
   "luasocket",
   "luafilesystem",
   "inspect",
-  "lyaml",
+  "lyaml", -- WHY?
   "lzmq-ffi",
   "inifile",
-  "turbo",
+  "turbo", -- WHY? I'm hosting a lua http server?
   "uuid"
 }
 
@@ -33,7 +32,7 @@ build = {
   type = 'builtin',
   modules = {
     ['bw.lib.json'] = "src/lib/json.lua",
-    ['bw.lib.yaml'] = "src/lib/YAMLParserLite.lua",
+    ['bw.lib.yaml'] = "src/lib/YAMLParserLite.lua", -- WHY IF THERE IS ALSO LYAML?
     ['bw.bots'] = "src/bots.lua",
     ['bw.messages'] = "src/messages.lua",
     ['bw.options'] = "src/options.lua",

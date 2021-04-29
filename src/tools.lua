@@ -1,5 +1,4 @@
 -- very self-explanatory
-local fun = require("moses")
 local inspect = require("inspect")
 local http = require("socket.http")
 local https = require("ssl.https")
@@ -7,6 +6,23 @@ local lfs = require("lfs")
 local ini = require("inifile")
 
 local tools = {}
+
+local function count(t)
+    local i = 0
+    for k, v in pairs(t) do i = i + 1 end
+    return i
+end
+
+function tools.pass()
+    -- do nothing
+    return 'ok'
+end
+
+function tools.size(...)
+    local args = {...}
+    local arg1 = args[1]
+    return(type(arg1) == 'table') and count(args[1]) or count(args)
+end
 
 function tools.update_registry()
     os.execute("bash /opt/bw/include/wine_registry.sh")
@@ -30,7 +46,7 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
     --
     -- Preparing bwapi.ini
     --
-    if fun.size(bot) > 2 then
+    if tools.size(bot) > 2 then
         bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/" .. bot['name'] .. ".dll, HUMAN"
         --bwapi["ai"]["tournament"] = "bwapi-data/tm.dll"
         bwapi["auto_menu"]["race"] = bot["race"]
@@ -38,7 +54,7 @@ function tools.prepare_bwapi(bwapi, bot, map, conf, session)
         bwapi["starcraft"]["speed_override"] = 42
         bwapi["auto_menu"]["game"] = bot["name"]
         bwapi["auto_menu"]["map"] = map
-    elseif fun.size(bot) == 2 then
+    elseif tools.size(bot) == 2 then
         -- is very diffrent to handle things for bot vs bot!
         bwapi["ai"]["ai"] = "/opt/StarCraft/bwapi-data/AI/"
             .. bot[1]['name']
@@ -76,13 +92,14 @@ function tools.start_game(bot, map, session)
     --
     --
     lfs.chdir('/opt/StarCraft')
-    if fun.size(bot) > 2 then
+    if tools.size(bot) > 2 then
 
         if bot['type'] == 'Java' then
             tools.pass()
         elseif bot['type'] == 'EXE' then
             tools.pass()
         elseif bot['type'] == 'Linux' then
+            print("isd")
             cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
                 .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
                 .. bot['name'] .. " --game " .. bot['name'] .. " --race "
@@ -95,12 +112,11 @@ function tools.start_game(bot, map, session)
                 .. string.sub(bot['race'], 1, 1) .. " --map " .. map
                 .. "& wine Chaoslauncher/Chaoslauncher.exe"
         end
-        print(cmd)
         local file = assert(io.popen(cmd, 'r'))
         local output = file:read('*all')
         file:close()
-        print(output)
-    elseif fun.size(bot) == 2 then
+        --print(output)
+    elseif tools.size(bot) == 2 then
         -- zmq and I'm ready to fuck shit up
     else
         --
