@@ -99,7 +99,6 @@ function tools.start_game(bot, map, session)
         elseif bot['type'] == 'EXE' then
             tools.pass()
         elseif bot['type'] == 'Linux' then
-            print("isd")
             cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
                 .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
                 .. bot['name'] .. " --game " .. bot['name'] .. " --race "

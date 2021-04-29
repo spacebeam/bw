@@ -28,7 +28,7 @@ local parser = argparse() {
 local conf = options.get_options("/opt/bw/include/bw.yml")
 -- Spawning fighting bots at
 parser:option("-b --bots", "Prepare to fight", "Ophelia")
-parser:option("-m --map", "is not territory", "maps/TorchUp/\\(4\\)FightingSpirit1.3.scx")
+parser:option("-m --map", "is not territory", "maps/BroodWar/torchup/\\(4\\)FightingSpirit1.3.scx")
 -- CLI bw command
 parser:command_target("command")
 parser:command("play")
